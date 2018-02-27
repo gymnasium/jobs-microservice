@@ -1,0 +1,28 @@
+{
+  "name": "jobs-module",
+  "version": "1.0.0",
+  "description": "jobs module for gymnasium. This is the go-between for the Job API we use, and the job listings displayed onsite",
+  "main": "index.js",
+  "author": "Mike Bifulco <mbifulco@aquent.com>",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "lint": "eslint index.js src",
+    "start": "node index.js"
+  },
+  "devDependencies": {
+    "eslint": "^4.18.0",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-prettier": "^2.6.0",
+    "eslint-plugin-react": "^7.7.0",
+    "jest": "^22.4.0",
+    "prettier": "^1.10.2"
+  },
+  "dependencies": {
+    "fetch": "^1.1.0",
+    "lodash": "^4.17.5"
+  }
+}
