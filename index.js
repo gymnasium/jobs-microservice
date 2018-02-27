@@ -1,3 +1,9 @@
+const express = require("express");
+const ReactDOMServer = require("react-dom/server");
+const _ = require("lodash");
+
+const JobListing = require("./src/components/JobListing");
+
 const { fetchJobsForMarket, getMarketFromLatLong } = require("./src/util");
 
 /*
@@ -38,14 +44,21 @@ const loadJobs = config => {
   return jobs;
 };
 
-const jobs = loadJobs({
-  market: {
-    coords: {
-      latitude: 35.227087,
-      longitude: -80.843127
+const app = express();
+
+app.get("/", async (req, res) => {
+  const jobs = await loadJobs({
+    market: {
+      coords: {
+        latitude: 35.227087,
+        longitude: -80.843127
+      }
     }
-  }
+  });
+
+  const jobListings = _.map(jobs, job => new JobListing({ job }));
+
+  res.send(ReactDOMServer.renderToString(jobListings));
 });
 
-// eslint-disable-next-line no-console
-console.dir(jobs);
+app.listen(3000);

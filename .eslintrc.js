@@ -3,6 +3,7 @@ module.exports = {
   plugins: ["prettier"],
   rules: {
     "prettier/prettier": "error",
-    "no-console": [0]
+    "no-console": [0],
+    "react/jsx-filename-extension": [0]
   }
 };
