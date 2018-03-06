@@ -58,7 +58,8 @@ app.get("/", async (req, res) => {
 
   const jobListings = _.map(jobs, job => new JobListing({ job }));
 
-  res.send(ReactDOMServer.renderToString(jobListings));
+  res.send(ReactDOMServer.renderToStaticMarkup(jobListings));
 });
 
 app.listen(3000);
+console.log("listening on port 3000");

@@ -57,7 +57,17 @@ const fetchJobsForMarket = async (marketId, minorSegments = []) => {
   }
 };
 
+const generateUTMSlug = (
+  utmCampaign = "job-module",
+  utmSource = "thegymnasium.com",
+  utmMedium = "web"
+) => {
+  const UTMSlug = `utm_source=${utmSource}&utm_medium=${utmMedium}&utm_campaign=${utmCampaign}`;
+  return UTMSlug;
+};
+
 module.exports = {
   fetchJobsForMarket,
+  generateUTMSlug,
   getMarketFromLatLong
 };
