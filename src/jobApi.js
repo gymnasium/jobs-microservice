@@ -10,7 +10,7 @@ const apiCallback = response => {
 
 const loadJobsForMarket = (
   marketId,
-  minorSegments = [],
+  // minorSegments = [],
   limit = 20,
   page = 0
 ) =>
