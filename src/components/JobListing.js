@@ -12,7 +12,7 @@ const generateURLForJob = props => {
 };
 
 const JobListing = props => {
-  const { job } = props;
+  const { campaign, job } = props;
 
   if (!job) {
     return null;
@@ -21,7 +21,7 @@ const JobListing = props => {
   return (
     <div>
       <h1>{job.title}</h1>
-      <a href={generateURLForJob(props)} target="_blank">
+      <a href={generateURLForJob({ campaign, job })} target="_blank">
         {job.jobId}
       </a>
       <p
