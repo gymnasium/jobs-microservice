@@ -4,7 +4,29 @@ const { MARKETS } = require("./constants");
 const { loadJobsForMarket } = require("./jobApi");
 
 // return the cartesian distance between two lat/long points
+/**
+ * Returns the cartesian distance between two geographic points.
+ * @param {*} position1 a position object in the form { latitude, longitude }
+ * @param {*} position2 a position object in the form { latitude, longitude }
+ */
 const distanceBetweenPoints = (position1, position2) => {
+  if (!position1 || !position2) {
+    throw new Error(
+      "Two positions need to be provided to calculate a distance"
+    );
+  }
+
+  if (
+    !position1.latitude ||
+    !position1.longitude ||
+    !position2.latitude ||
+    !position2.longitude
+  ) {
+    throw new Error(
+      "both input coordinates must have a latitude and longitude specified."
+    );
+  }
+
   // set the lat and long coordinates on a 360 degree
   // scale, so that positions near 0 and 180 deg in
   // either direction wrap around correctly when
@@ -67,6 +89,7 @@ const generateUTMSlug = (
 };
 
 module.exports = {
+  distanceBetweenPoints,
   fetchJobsForMarket,
   generateUTMSlug,
   getMarketFromLatLong
