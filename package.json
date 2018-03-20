@@ -8,7 +8,8 @@
   "private": false,
   "scripts": {
     "lint": "eslint index.js src",
-    "start": "nodemon index.js --exec babel-node --presets es2015,stage-2,react",
+    "start:server": "babel-node index.js --presets es2015,stage-2,react",
+    "start:dev": "nodemon index.js --exec babel-node --presets es2015,stage-2,react",
     "test": "jest"
   },
   "devDependencies": {
