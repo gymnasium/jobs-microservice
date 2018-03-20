@@ -4,8 +4,12 @@ const PropTypes = require("prop-types");
 
 const { generateUTMSlug } = require("../util");
 
-const generateURLForJob = ({ campaign, job }) =>
-  `https://aquent.com/find-work/${job.jobId}?${generateUTMSlug(campaign)}`;
+const generateURLForJob = props => {
+  const { campaign, job } = props;
+  return `https://aquent.com/find-work/${job.jobId}?${generateUTMSlug(
+    campaign
+  )}`;
+};
 
 const JobListing = props => {
   const { job } = props;
