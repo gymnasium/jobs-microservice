@@ -1,4 +1,7 @@
 module.exports = {
+  env: {
+    jest: true
+  },
   extends: ["airbnb", "prettier"],
   plugins: ["prettier", "jest"],
   rules: {
