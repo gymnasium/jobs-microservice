@@ -1,7 +1,7 @@
-const _ = require("lodash");
+import _ from 'lodash';
 
-const { MARKETS } = require("./constants");
-const { loadJobsForMarket } = require("./jobApi");
+import { MARKETS } from './constants';
+import { loadJobsForMarket } from './jobApi';
 
 // return the cartesian distance between two lat/long points
 /**
@@ -9,7 +9,7 @@ const { loadJobsForMarket } = require("./jobApi");
  * @param {*} position1 a position object in the form { latitude, longitude }
  * @param {*} position2 a position object in the form { latitude, longitude }
  */
-const distanceBetweenPoints = (position1, position2) => {
+export const distanceBetweenPoints = (position1, position2) => {
   if (!position1 || !position2) {
     throw new Error(
       "Two positions need to be provided to calculate a distance"
@@ -48,7 +48,7 @@ const distanceBetweenPoints = (position1, position2) => {
  * @param {*} postition - object containing lat and long for which we will retun the nearest locale
  * @returns object representing the market nearest to the lat/long pair
  */
-const getMarketFromLatLong = postition => {
+export const getMarketFromLatLong = postition => {
   let nearestDist = Infinity;
   let nearestMarket = null;
 
@@ -63,7 +63,7 @@ const getMarketFromLatLong = postition => {
   return nearestMarket;
 };
 
-const fetchJobsForMarket = async (marketId, minorSegments = []) => {
+export const fetchJobsForMarket = async (marketId, minorSegments = []) => {
   // make sure a marketId was supplied
   if (!marketId) return null;
 
@@ -79,7 +79,7 @@ const fetchJobsForMarket = async (marketId, minorSegments = []) => {
   }
 };
 
-const generateUTMSlug = (
+export const generateUTMSlug = (
   utmCampaign = "job-module",
   utmSource = "thegymnasium.com",
   utmMedium = "web"
@@ -88,9 +88,3 @@ const generateUTMSlug = (
   return UTMSlug;
 };
 
-module.exports = {
-  distanceBetweenPoints,
-  fetchJobsForMarket,
-  generateUTMSlug,
-  getMarketFromLatLong
-};

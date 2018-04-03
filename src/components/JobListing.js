@@ -1,8 +1,8 @@
 /* eslint-disable react/no-danger */
-const React = require("react");
-const PropTypes = require("prop-types");
+import React from 'react';
+import PropTypes from 'prop-types';
 
-const { generateUTMSlug } = require("../util");
+import { generateUTMSlug } from '../util/util';
 
 const generateURLForJob = props => {
   const { campaign, job } = props;
@@ -47,4 +47,4 @@ JobListing.propTypes = {
   })
 };
 
-module.exports = JobListing;
+export default JobListing;
