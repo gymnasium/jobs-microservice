@@ -1,44 +1,25 @@
-import React, { Component } from 'react';
-import { map } from 'lodash';
-
-import './App.css';
-
+import React from 'react';
 import {
-  fetchJobsForMarket,
-  generateUTMSlug,
-  getMarketFromLatLong,
-} from './util/util';
+  BrowserRouter as Router,
+  Route,
+  Switch,
+} from 'react-router-dom';
 
 // components
-import { JobListing } from './components';
+import { JobList } from './components';
 
-class App extends Component {
-  state = {
-    jobs: {},
-  };
-
-  constructor(props) {
-    super(props);
-    const market = getMarketFromLatLong({
-      latitude: 35.227087,
-      longitude: -80.843127,
-    });
-
-    fetchJobsForMarket(market.id).then(this.handleJobsLoaded);
-  }
-
-  handleJobsLoaded = jobs => {
-    this.setState({
-      jobs,
-    });
-  };
-
-  render() {
-    const { jobs } = this.state;
-    return (
-      <div className="App">{map(jobs, job => <JobListing job={job} />)}</div>
-    );
-  }
-}
+const App = (props) =>{
+  return (
+    <div className="App">
+      <Router>
+        <Switch>
+          <Route path="/:marketId" exact component={JobList} />
+          <Route path="/:latitude/:longitude" component={JobList} />
+          <Route path="/" component={JobList} />
+        </Switch>
+      </Router>
+    </div>
+  );
+};
 
 export default App;
