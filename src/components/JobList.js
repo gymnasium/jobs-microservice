@@ -4,10 +4,11 @@ import { map } from 'lodash';
 
 import {
   fetchJobsForMarket,
-  generateUTMSlug,
   getMarketFromId,
   getMarketFromLatLong,
 } from '../util/util';
+
+import { MARKETS } from '../util/constants';
 
 import {
   JobListing,
@@ -23,7 +24,7 @@ class JobList extends Component {
 
     // check to see if lat and long are coming in through URL
     const { match } = props;
-    let market;
+    let market = MARKETS[10];
 
     if (match && match.params) {
       if (
@@ -46,8 +47,10 @@ class JobList extends Component {
       market,
       jobs: {},
     };
-
-    fetchJobsForMarket(market.id).then(this.handleJobsLoaded);
+    
+    if (market && market.id) {
+      fetchJobsForMarket(market.id).then(this.handleJobsLoaded);
+    }
   }
 
   handleJobsLoaded = jobs => {
@@ -72,14 +75,49 @@ class JobList extends Component {
     } = this.state;
 
     return (
-      <div className="job-list">
-        <p>Showing jobs for <em>{market.name}</em></p>
-        <MarketDropdown
-          initialMarketId={market.id}
-          onMarketChanged={this.handleMarketChanged}
-        />
-        {map(jobs, (job, key) => <JobListing job={job} key={key} />)}
-      </div>
+      <article id="find-work" className="job-list">
+        <header>
+          <h2>Find Work</h2>
+          <p>Find work that best fits your skills, in your area.</p>
+        </header>
+        <form method="get" id="find-work-search">
+          <div className="field select row">
+            <MarketDropdown
+              initialMarketId={market.id}
+              onViewJobsClicked={this.handleMarketChanged}
+            />
+          </div>
+          <section className="job-board">
+            <h3 className="viewing-jobs-in">
+              Viewing jobs in 
+              {' '}
+              <var className="job-location">
+                {market && market.name}{'…'}
+              </var>
+            </h3>
+            <ul>
+              {map(jobs, (job, key) => <JobListing job={job} key={key} />)}
+            </ul>
+            <div className="row">
+              <a href={`http://aquent.com/find-work/?l=${market.id}&utm_source=gymnasium&utm_medium=web&utm_campaign=homepagejobs&utm_content=viewall`} className="view-all-jobs">
+                View all jobs in
+                {' '}
+                <var className="job-location">
+                  {market.name}
+                </var>
+                {' →'}
+              </a>
+            </div>
+          </section>
+        </form>
+        <div className="note" role="note">
+          <p>
+            <small>
+              <b>Find Work</b> is powered by <a href="https://aquent.com/find-work/">Aquent</a>, a leading talent agency, and maker of awesomely free courses from <a href="https://thegymnasium.com">Gymnasium</a>.
+            </small>
+          </p>
+        </div>
+      </article>
     );
   }
 }

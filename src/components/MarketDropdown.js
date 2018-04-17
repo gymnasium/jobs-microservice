@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { map } from 'lodash';
+import { map, sortBy } from 'lodash';
 
 import { getMarketFromId } from '../util/util';
 import { MARKETS } from '../util/constants';
@@ -20,14 +20,26 @@ class MarketDropdown extends Component {
   }
 
   handleMarketChanged = () => {
-    const { onMarketChanged } = this.props;
-    if (onMarketChanged && typeof onMarketChanged === 'function') {
-      
-      const selectedIndex = this.marketDropdown.selectedIndex;
-      const marketId = this.marketDropdown.options[selectedIndex].value;
-      
-      const market = getMarketFromId(marketId);
-      onMarketChanged(market);
+    const selectedIndex = this.marketDropdown.selectedIndex;
+    const marketId = this.marketDropdown.options[selectedIndex].value;
+    const market = getMarketFromId(marketId);
+
+    this.setState({
+      marketId,
+      market,
+    });
+  }
+
+  handleViewJobsClicked = (event) => {
+    const { onViewJobsClicked } = this.props;
+    const { market } = this.state;
+
+    if (event && event.preventDefault) {
+      event.preventDefault();
+    }
+
+    if (onViewJobsClicked && typeof onViewJobsClicked === 'function') {
+      onViewJobsClicked(market);
     }
   }
 
@@ -37,29 +49,40 @@ class MarketDropdown extends Component {
     } = this.state;
 
     return (
-      <select
-        value={marketId}
-        onChange={this.handleMarketChanged}
-        ref={(el) => { this.marketDropdown = el}}
-      >
-        {map(MARKETS, (market) => {
-          return (
-            <option
-              key={market.id}
-              value={market.id}
-            >
-              {market.name}
-            </option>
-          );
-        })}
-      </select>
+      <React.Fragment>
+        <select
+          onChange={this.handleMarketChanged}
+          value={marketId}
+          ref={(el) => { this.marketDropdown = el}}
+        >
+          {map(
+            sortBy(MARKETS, ['name']
+          ), (market) => {
+            return (
+              <option
+                key={market.id}
+                value={market.id}
+              >
+                {market.name}
+              </option>
+            );
+          })}
+        </select>
+        <button
+          className="gym-button"
+          id="view-jobs-button"
+          onClick={this.handleViewJobsClicked}
+        >
+          <b>View Jobs</b>
+        </button>
+      </React.Fragment>
     );
   }
 };
 
 MarketDropdown.propTypes = {
   initialMarketId: PropTypes.number,
-  onMarketChanged: PropTypes.func,
+  onViewJobsClicked: PropTypes.func,
 };
 
 MarketDropdown.defaultProps = {

@@ -18,18 +18,24 @@ const JobListing = props => {
     return null;
   }
 
+
+  // determine the city to display on this job
+  // note: geocodecity is unreliable, but a reasonable fallback
+  // we will display the job.marketId if it is a string (and not parseable as a number)
+  let jobLocation = job.marketId;
+  // try to parse this marketId as a number - if it is a number, we will use the geocode data
+  if (!isNaN(parseInt(job.city, 10))) {
+    const stateDisplay = job.geocodeState ? `, ${job.geocodeState}`: null;
+    jobLocation = `${job.geocodeCity}${stateDisplay}`;
+  }
+
   return (
-    <div>
-      <h1>{job.title}</h1>
+    <li className="row">
       <a href={generateURLForJob({ campaign, job })} target="_blank">
-        {job.jobId}
+        <b className="job-title col-xs-8">{job.title}</b>
+        <em className="job-market col-xs-4 text-right">{jobLocation}</em>
       </a>
-      <p
-        dangerouslySetInnerHTML={{
-          __html: job.description
-        }}
-      />
-    </div>
+    </li>
   );
 };
 
