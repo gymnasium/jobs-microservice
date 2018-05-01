@@ -8,18 +8,16 @@ import {
 // components
 import { JobList } from './components';
 
-const App = (props) =>{
-  return (
-    <div className="App">
-      <Router>
-        <Switch>
-          <Route path="/:marketId" exact component={JobList} />
-          <Route path="/:latitude/:longitude" component={JobList} />
-          <Route path="/" component={JobList} />
-        </Switch>
-      </Router>
-    </div>
-  );
-};
+const App = (/* props */) => (
+  <div className="App">
+    <Router>
+      <Switch>
+        <Route path="/:marketId" exact component={JobList} />
+        <Route path="/:latitude/:longitude" component={JobList} />
+        <Route path="/" component={JobList} />
+      </Switch>
+    </Router>
+  </div>
+);
 
 export default App;

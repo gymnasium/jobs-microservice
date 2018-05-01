@@ -19,7 +19,10 @@ class JobList extends Component {
   constructor(props) {
     super(props);
 
-    let latitude = 35.227087;   // lat for Charlotte
+    this.handleJobsLoaded = this.handleJobsLoaded.bind(this);
+    this.handleMarketChanged = this.handleMarketChanged.bind(this);
+
+    let latitude = 35.227087; // lat for Charlotte
     let longitude = -80.843127; // long for Charlotte
 
     // check to see if lat and long are coming in through URL
@@ -31,15 +34,17 @@ class JobList extends Component {
         match.params.latitude &&
         match.params.longitude
       ) {
+        /* eslint-disable prefer-destructuring */
         latitude = match.params.latitude;
         longitude = match.params.longitude;
+        /* eslint-enable prefer-destructuring */
 
         market = getMarketFromLatLong({
           latitude,
           longitude,
         });
       } else if (match.params.marketId) {
-        market = getMarketFromId(match.params.marketId)
+        market = getMarketFromId(match.params.marketId);
       }
     }
 
@@ -47,26 +52,26 @@ class JobList extends Component {
       market,
       jobs: {},
     };
-    
+
     if (market && market.id) {
       fetchJobsForMarket(market.id).then(this.handleJobsLoaded);
     }
   }
 
-  handleJobsLoaded = jobs => {
+  handleJobsLoaded(jobs) {
     this.setState({
       jobs,
     });
-  };
+  }
 
-  handleMarketChanged = (market) => {
+  handleMarketChanged(market) {
     if (market) {
       this.setState({
         market,
       });
       fetchJobsForMarket(market.id).then(this.handleJobsLoaded);
     }
-  };
+  }
 
   render() {
     const {
@@ -89,7 +94,7 @@ class JobList extends Component {
           </div>
           <section className="job-board">
             <h3 className="viewing-jobs-in">
-              Viewing jobs in 
+              Viewing jobs in
               {' '}
               <var className="job-location">
                 {market && market.name}{'…'}
@@ -123,7 +128,7 @@ class JobList extends Component {
 }
 
 JobList.propTypes = {
-  match: PropTypes.shape({}),
+  match: PropTypes.shape({}).isRequired,
 };
 
 export default JobList;

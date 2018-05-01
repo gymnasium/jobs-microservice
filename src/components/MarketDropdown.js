@@ -8,6 +8,8 @@ import { MARKETS } from '../util/constants';
 class MarketDropdown extends Component {
   constructor(props) {
     super(props);
+    // this.handleMarketChanged = this.handleMarketChanged.bind(this);
+    // this.handleViewJobsClicked = this.handleViewJobsClicked.bind(this);
 
     const { initialMarketId } = props;
 
@@ -20,7 +22,9 @@ class MarketDropdown extends Component {
   }
 
   handleMarketChanged = () => {
-    const selectedIndex = this.marketDropdown.selectedIndex;
+    const { selectedIndex } = this.marketDropdown;
+    if (!selectedIndex) return;
+
     const marketId = this.marketDropdown.options[selectedIndex].value;
     const market = getMarketFromId(marketId);
 
@@ -53,20 +57,16 @@ class MarketDropdown extends Component {
         <select
           onChange={this.handleMarketChanged}
           value={marketId}
-          ref={(el) => { this.marketDropdown = el}}
+          ref={(el) => { this.marketDropdown = el; }}
         >
-          {map(
-            sortBy(MARKETS, ['name']
-          ), (market) => {
-            return (
-              <option
-                key={market.id}
-                value={market.id}
-              >
-                {market.name}
-              </option>
-            );
-          })}
+          {map(sortBy(MARKETS, ['name']), market => (
+            <option
+              key={market.id}
+              value={market.id}
+            >
+              {market.name}
+            </option>
+          ))}
         </select>
         <button
           className="gym-button"
@@ -78,7 +78,7 @@ class MarketDropdown extends Component {
       </React.Fragment>
     );
   }
-};
+}
 
 MarketDropdown.propTypes = {
   initialMarketId: PropTypes.number,
@@ -87,6 +87,7 @@ MarketDropdown.propTypes = {
 
 MarketDropdown.defaultProps = {
   initialMarketId: 10,
+  onViewJobsClicked: () => null,
 };
 
 export default MarketDropdown;

@@ -24,7 +24,7 @@ const JobListing = props => {
   // we will display the job.marketId if it is a string (and not parseable as a number)
   let jobLocation = job.marketId;
   // try to parse this marketId as a number - if it is a number, we will use the geocode data
-  if (!isNaN(parseInt(job.city, 10))) {
+  if (!Number.isNaN(parseInt(job.city, 10))) {
     const stateDisplay = job.geocodeState ? `, ${job.geocodeState}`: null;
     jobLocation = `${job.geocodeCity}${stateDisplay}`;
   }

@@ -1,5 +1,4 @@
 const util = require("./util");
-const { MARKETS } = require("./constants");
 
 it('returns the correct cifty for a given Lat/Long', ()=> {
   it('returns correctly for Charlotte', () => {
