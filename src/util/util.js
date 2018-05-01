@@ -9,13 +9,13 @@ import { loadJobsForMarket } from './jobApi';
  * @param {*} position - object containing lat and long for which we will retun the nearest locale
  * @returns object representing the market nearest to the lat/long pair
  */
-export const getMarketFromLatLong = position => {
+export const getMarketFromLatLong = (position) => {
   let nearestDist = Infinity;
   let nearestMarket = null;
 
   const p1 = new LatLon(position.latitude, position.longitude);
 
-  _.forEach(MARKETS, market => {
+  _.forEach(MARKETS, (market) => {
     const p2 = new LatLon(market.coords.latitude, market.coords.longitude);
     const dist = p1.distanceTo(p2);
     if (dist < nearestDist) {
@@ -35,7 +35,7 @@ export const getMarketFromId = (marketId) => {
   if (!marketId) return undefined;
 
   return MARKETS[marketId];
-}
+};
 
 export const fetchJobsForMarket = async (marketId, minorSegments = []) => {
   // make sure a marketId was supplied
@@ -54,9 +54,9 @@ export const fetchJobsForMarket = async (marketId, minorSegments = []) => {
 };
 
 export const generateUTMSlug = (
-  utmCampaign = "job-module",
-  utmSource = "thegymnasium.com",
-  utmMedium = "web"
+  utmCampaign = 'job-module',
+  utmSource = 'thegymnasium.com',
+  utmMedium = 'web',
 ) => {
   const UTMSlug = `utm_source=${utmSource}&utm_medium=${utmMedium}&utm_campaign=${utmCampaign}`;
   return UTMSlug;

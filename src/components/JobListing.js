@@ -4,14 +4,12 @@ import PropTypes from 'prop-types';
 
 import { generateUTMSlug } from '../util/util';
 
-const generateURLForJob = props => {
+const generateURLForJob = (props) => {
   const { campaign, job } = props;
-  return `https://aquent.com/find-work/${job.jobId}?${generateUTMSlug(
-    campaign
-  )}`;
+  return `https://aquent.com/find-work/${job.jobId}?${generateUTMSlug(campaign)}`;
 };
 
-const JobListing = props => {
+const JobListing = (props) => {
   const { campaign, job } = props;
 
   if (!job) {
@@ -25,7 +23,7 @@ const JobListing = props => {
   let jobLocation = job.marketId;
   // try to parse this marketId as a number - if it is a number, we will use the geocode data
   if (!Number.isNaN(parseInt(job.city, 10))) {
-    const stateDisplay = job.geocodeState ? `, ${job.geocodeState}`: null;
+    const stateDisplay = job.geocodeState ? `, ${job.geocodeState}` : null;
     jobLocation = `${job.geocodeCity}${stateDisplay}`;
   }
 
@@ -33,6 +31,7 @@ const JobListing = props => {
     <li className="row">
       <a href={generateURLForJob({ campaign, job })} target="_blank">
         <b className="job-title col-xs-8">{job.title}</b>
+        {' '}
         <em className="job-market col-xs-4 text-right">{jobLocation}</em>
       </a>
     </li>
@@ -40,8 +39,8 @@ const JobListing = props => {
 };
 
 JobListing.defaultProps = {
-  campaign: "job-module",
-  job: null
+  campaign: 'job-module',
+  job: null,
 };
 
 JobListing.propTypes = {
@@ -49,8 +48,8 @@ JobListing.propTypes = {
   job: PropTypes.shape({
     description: PropTypes.string,
     jobId: PropTypes.string,
-    title: PropTypes.string
-  })
+    title: PropTypes.string,
+  }),
 };
 
 export default JobListing;
