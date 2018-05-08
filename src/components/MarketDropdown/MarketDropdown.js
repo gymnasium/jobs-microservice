@@ -2,8 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { map, sortBy } from 'lodash';
 
-import { getMarketFromId } from '../util/util';
-import { MARKETS } from '../util/constants';
+import { getMarketFromId } from '../../util/util';
+import { MARKETS } from '../../util/constants';
+import { GymButton } from '../';
+
+// CSS
+import './MarketDropdown.css';
 
 class MarketDropdown extends Component {
   constructor(props) {
@@ -55,6 +59,7 @@ class MarketDropdown extends Component {
     return (
       <React.Fragment>
         <select
+          className="gym-microservice-market-dropdown"
           onChange={this.handleMarketChanged}
           value={marketId}
           ref={(el) => { this.marketDropdown = el; }}
@@ -68,13 +73,13 @@ class MarketDropdown extends Component {
             </option>
           ))}
         </select>
-        <button
+        <GymButton
           className="gym-button"
-          id="view-jobs-button"
+          id="view-jobs-button-2"
           onClick={this.handleViewJobsClicked}
         >
-          <b>View Jobs</b>
-        </button>
+          View Jobs
+        </GymButton>
       </React.Fragment>
     );
   }

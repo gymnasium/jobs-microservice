@@ -6,14 +6,16 @@ import {
   fetchJobsForMarket,
   getMarketFromId,
   getMarketFromLatLong,
-} from '../util/util';
+} from '../../util/util';
 
-import { MARKETS } from '../util/constants';
+import { MARKETS } from '../../util/constants';
 
 import {
   JobListing,
   MarketDropdown,
-} from './';
+} from '../';
+
+import './JobList.css';
 
 class JobList extends Component {
   constructor(props) {
@@ -80,7 +82,7 @@ class JobList extends Component {
     } = this.state;
 
     return (
-      <article id="find-work" className="job-list">
+      <article id="gym-microservice-find-work" className="job-list">
         <header>
           <h2>Find Work</h2>
           <p>Find work that best fits your skills, in your area.</p>
@@ -115,13 +117,6 @@ class JobList extends Component {
             </div>
           </section>
         </form>
-        <div className="note" role="note">
-          <p>
-            <small>
-              <b>Find Work</b> is powered by <a href="https://aquent.com/find-work/">Aquent</a>, a leading talent agency, and maker of awesomely free courses from <a href="https://thegymnasium.com">Gymnasium</a>.
-            </small>
-          </p>
-        </div>
       </article>
     );
   }

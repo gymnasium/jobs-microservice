@@ -2,7 +2,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { generateUTMSlug } from '../util/util';
+import { generateUTMSlug } from '../../util/util';
+
+import './JobListing.css';
 
 const generateURLForJob = (props) => {
   const { campaign, job } = props;
@@ -28,11 +30,13 @@ const JobListing = (props) => {
   }
 
   return (
-    <li className="row">
+    <li className="row gym-microservice-job-listing">
       <a href={generateURLForJob({ campaign, job })} target="_blank">
-        <b className="job-title col-xs-8">{job.title}</b>
-        {' '}
-        <em className="job-market col-xs-4 text-right">{jobLocation}</em>
+        <div className="job-post">
+          <b className="job-title col-xs-8">{job.title}</b>
+          {' '}
+          <em className="job-market col-xs-4 text-right">{jobLocation}</em>
+        </div>
       </a>
     </li>
   );

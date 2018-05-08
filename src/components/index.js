@@ -1,3 +1,7 @@
-export { default as JobListing } from './JobListing';
-export { default as JobList } from './JobList';
-export { default as MarketDropdown } from './MarketDropdown';
+export {
+  JobListing,
+  JobList,
+} from './JobList';
+
+export { MarketDropdown } from './MarketDropdown';
+export { GymButton } from './GymButton';
