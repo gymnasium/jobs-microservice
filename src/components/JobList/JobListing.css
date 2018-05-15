@@ -1,0 +1,38 @@
+.gym-microservice-job-listing {
+  font: 1em/1.15 "Helvetica Neue", Helvetica, Arial, sans-serif;
+  border-bottom: 1px solid #ccc;
+  font-size: 0.9em;
+}
+
+.gym-microservice-job-listing a {
+  display: block;
+  position: relative;
+  color: #f8971d;
+  height: auto;
+  padding: .6em 1.2em .6em .6em;
+  overflow: hidden;
+  transition: .2s padding-left ease-in-out;
+  text-decoration: none;
+}
+
+.gym-microservice-job-listing a:hover {
+  padding-left: 1.2em;
+}
+
+.gym-microservice-job-listing a:hover:before {
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  font: 1em/1 monospace, monospace;
+  color: #444;
+  content: "→";
+  height: 0;
+  line-height: 0;
+  margin: auto;
+}
+
+.gym-microservice-job-listing a:hover .job-post b {
+  text-decoration: underline;
+}

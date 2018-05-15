@@ -1,0 +1,36 @@
+#gym-microservice-find-work {
+  padding-bottom: 1em;
+  border-bottom: 1px dashed #ccc;
+  margin-bottom: 1em;
+}
+
+#gym-microservice-find-work header p {
+  font: normal 1em/1.3 brandon-grotesque, "Helvetica Neue", Helvetica, sans-serif;
+  letter-spacing: 0.01em;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+#gym-microservice-find-work ul {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 1.2em;
+}
+
+#gym-microservice-find-work h3.viewing-jobs-in {
+  font: bold 0.9em/1.3 "Helvetica Neue", Helvetica, sans-serif;
+  letter-spacing: .02em;
+  text-transform: none;
+  margin-top: 1em;
+}
+
+#gym-microservice-find-work .view-all-jobs {
+  color: #f8971d;
+  font-weight: 900;
+  text-decoration: none;
+  font-size: 0.9em;
+}
+
+#gym-microservice-find-work .view-all-jobs:hover {
+  text-decoration: underline;
+}

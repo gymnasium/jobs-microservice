@@ -1,12 +1,21 @@
 module.exports = {
   env: {
-    jest: true
+    jest: true,
+    node: true,
+    browser: true,
+    es6: true,
   },
-  extends: ["airbnb", "prettier"],
-  plugins: ["prettier", "jest"],
+  globals: {
+    'document': true
+  },
+  extends: [
+    "airbnb",
+    "react-app",
+  ],
+  plugins: ["react", "jest"],
   rules: {
-    "prettier/prettier": "error",
     "no-console": [0],
-    "react/jsx-filename-extension": [0]
+    "react/jsx-filename-extension": [0],
+    "jsx-a11y/href-no-hash": [0], 
   }
 };
