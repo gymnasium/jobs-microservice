@@ -84,7 +84,7 @@ class JobList extends Component {
     return (
       <article id="gym-microservice-find-work" className="job-list">
         <header>
-          <h2>Find Work</h2>
+          <h2>Find Work.</h2>
           <p>Find work that best fits your skills, in your area.</p>
         </header>
         <form method="get" id="find-work-search">
