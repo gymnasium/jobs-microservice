@@ -33,8 +33,13 @@ export const getMarketFromLatLong = (position) => {
  */
 export const getMarketFromId = (marketId) => {
   if (!marketId) return undefined;
+  if (Number.isNaN(marketId)) return undefined;
 
-  return MARKETS[marketId];
+  let market = MARKETS[marketId];
+  // default to boston if we do not have a valid marketId supplied
+  if (!market) market = MARKETS['10'];
+
+  return market;
 };
 
 export const fetchJobsForMarket = async (marketId, minorSegments = []) => {
