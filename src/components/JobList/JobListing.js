@@ -27,7 +27,7 @@ const generateURLForJob = (props) => {
     }
   }
 
-  return `https://aquent${topLevelDomain}/find-work/${job.jobId}?${generateUTMSlug(campaign)}`;
+  return `https://aquent${topLevelDomain}/find-work/${job.jobId}?${generateUTMSlug(campaign)}#content`;
 };
 
 const JobListing = (props) => {
