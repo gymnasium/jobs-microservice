@@ -7,17 +7,39 @@ import { generateUTMSlug } from '../../util/util';
 import './JobListing.css';
 
 const generateURLForJob = (props) => {
-  const { campaign, job } = props;
-  return `https://aquent.com/find-work/${job.jobId}?${generateUTMSlug(campaign)}`;
+  const {
+    campaign,
+    job,
+    market,
+  } = props;
+
+  let topLevelDomain = '.com';
+
+  // australian job links require us to point to aquent.com.au!
+  if (market && market.id) {
+    switch (market.id) {
+      case 36: // melbourne
+      case 39: // sydney
+        topLevelDomain = '.com.au';
+        break;
+      default:
+        break;
+    }
+  }
+
+  return `https://aquent${topLevelDomain}/find-work/${job.jobId}?${generateUTMSlug(campaign)}#content`;
 };
 
 const JobListing = (props) => {
-  const { campaign, job } = props;
+  const {
+    campaign,
+    market,
+    job,
+  } = props;
 
   if (!job) {
     return null;
   }
-
 
   // determine the city to display on this job
   // note: geocodecity is unreliable, but a reasonable fallback
@@ -31,7 +53,7 @@ const JobListing = (props) => {
 
   return (
     <li className="row gym-microservice-job-listing">
-      <a href={generateURLForJob({ campaign, job })} target="_blank">
+      <a href={generateURLForJob({ campaign, job, market })} target="_blank" rel="noopener noreferrer">
         <div className="job-post">
           <b className="job-title col-xs-8">{job.title}</b>
           {' '}
@@ -45,6 +67,7 @@ const JobListing = (props) => {
 JobListing.defaultProps = {
   campaign: 'job-module',
   job: null,
+  market: null,
 };
 
 JobListing.propTypes = {
@@ -53,6 +76,9 @@ JobListing.propTypes = {
     description: PropTypes.string,
     jobId: PropTypes.string,
     title: PropTypes.string,
+  }),
+  market: PropTypes.shape({
+    id: PropTypes.number,
   }),
 };
 
