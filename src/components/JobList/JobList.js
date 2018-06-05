@@ -29,6 +29,8 @@ class JobList extends Component {
 
     // check to see if lat and long are coming in through URL
     const { match } = props;
+
+    // choose boston as default market
     let market = MARKETS[10];
 
     if (match && match.params) {
@@ -103,7 +105,7 @@ class JobList extends Component {
               </var>
             </h3>
             <ul>
-              {map(jobs, (job, key) => <JobListing job={job} key={key} />)}
+              {map(jobs, (job, key) => <JobListing job={job} key={key} market={market} />)}
             </ul>
             <div className="row">
               <a href={`http://aquent.com/find-work/?l=${market.id}&utm_source=gymnasium&utm_medium=web&utm_campaign=homepagejobs&utm_content=viewall`} className="view-all-jobs">
