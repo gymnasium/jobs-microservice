@@ -1,0 +1,525 @@
+/* --- flexible images --- */
+
+.content-wrapper img {
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  vertical-align: middle;
+}
+
+/* --- typography --- */
+
+/* headings /margin reset */
+
+.content-wrapper h1,
+.content-wrapper h2,
+.content-wrapper h3,
+.content-wrapper h4,
+.content-wrapper h5,
+.content-wrapper h6 {
+  color: #222;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.content-wrapper h1 {
+  letter-spacing: .025em;
+}
+
+.content-wrapper h2 {
+  font-weight: 900;
+  font-size: 2.057142857142857em;
+  line-height: 1;
+  letter-spacing: .015em;
+}
+
+#feature h3 {
+  font: 900 1.828571428571429em/1.15 "brandon-grotesque", "Helvetica Neue", Helvetica, sans-serif;
+  letter-spacing: .035em;
+  text-transform: uppercase;
+}
+
+.content-wrapper h3 {
+  font: bold 1.6em/1.15 "Helvetica Neue", Helvetica, sans-serif;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+/* paragraphs */
+
+.content-wrapper p {
+  font: normal 1.15em/1.45 "Helvetica Neue", Helvetica, sans-serif;
+  margin-top: 1em;
+  margin-bottom: 0;
+}
+
+/* details */
+
+.no-wrap {
+  white-space: nowrap;
+}
+
+/* --- ux color palette --- */
+
+.bg-ux-design,
+.feature-course .bg-ux-design {
+  background: #5ca5a0;
+}
+
+.bg-ux-content {
+  background: #2c9959;
+}
+
+/* --- links / buttons --- */
+
+/* cta / structure */
+
+.cta {
+  text-align: center;
+  margin-top: 1.2em;
+}
+
+/* back to top */
+
+.to-top-link {
+  margin-top: 1.2em;
+}
+
+.to-top-link b {
+  color: #444;
+}
+
+.to-top-link b::before {
+  display: inline-block;
+  content: "↑";
+  font-family: monospace, monospace;
+  vertical-align: baseline;
+  margin-right: .25em;
+}
+
+/* remove border from linked images  */
+
+.content-wrapper a.img-link:hover {
+  border-bottom: none;
+}
+
+/* gym button */
+
+.content-wrapper .gym-button {
+  display: inline-block;
+  color: #fff;
+  text-decoration: none;
+  width: auto !important; /* ! */ /* shrink-wrap by default / risky override */
+  background: #f8971d;
+  padding: 1.2em 2.2em !important; /* ! */ /* risky override */
+  border: 0;
+  border-radius: .1875em;
+  cursor: pointer;
+}
+
+/* --- main --- */
+
+#main.content-wrapper {
+  background: #ebebeb;
+}
+
+.main-content {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+/* --- section --- */
+
+.section {
+  padding-top: 1.2em;
+  margin-bottom: 1.2em;
+}
+
+.section header p {
+  font: normal 1.25em/1.45 "Helvetica Neue", Helvetica, sans-serif;
+}
+
+.section-content {
+  background: #fff;
+  padding: 1.2em;
+  border: 1px solid #ccc;
+  border-radius: .1875em;
+}
+
+.section header {
+  margin-top: .4em;
+  margin-bottom: 1.6em;
+}
+
+/* --- #about --- */
+
+#about {
+  background: #d2d2d2;
+  padding-top: 1.6em;
+  padding-bottom: 1.6em;
+  border-bottom: 1px dashed #bbb;
+}
+
+#about p {
+  font: normal 1.45em/1.55 "Helvetica Neue", Helvetica, sans-serif;
+  color: #222;
+  margin-top: .6em;
+}
+
+#about .mission a {
+  color: inherit;
+  border-bottom: 2px solid #f8971d;
+}
+
+/* --- columns --- */
+
+.col {
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  overflow: hidden;
+}
+
+.col ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.col li {
+  position: relative;
+  top: -1px;
+  border-top: 1px solid #ddd;
+  padding-top: 1.2em;
+  padding-bottom: 1.2em;
+}
+
+.col li:first-child {
+  border-top: 0;
+}
+
+/* --- cards --- */
+
+.card,
+.card li {
+  border: 0;
+}
+
+.card ul {
+  margin-top: 1.2em;
+  }
+
+.card li {
+  top: 0;
+  padding: 0;
+  margin-top: 1.2em;
+}
+
+.card-content {
+  background: #fff;
+  border: 1px solid #bbb;
+  border-radius: .1875em;
+}
+
+.card-header,
+.card-main {
+  padding: 1.2em;
+}
+
+header.card-header,
+.card-main header {
+  margin-bottom: 0;
+}
+
+.card-header h2 {
+  font-size: 1.828571428571429em;
+  letter-spacing: 0;
+}
+
+.card-main {
+  overflow: hidden;
+}
+
+.card-header * {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.card-cta .structure {
+  text-align: center;
+  padding: 1.2em;
+}
+
+/* --- #feature --- */
+
+#feature {
+  margin-top: .6em;
+  margin-left: -15px;
+  margin-right: -15px;
+}
+
+#feature .card-main * {
+  color: #fff;
+}
+
+.card-main {
+  background: #444;
+}
+
+.course-artwork {
+  text-align: center;
+}
+
+#feature .course-artwork img {
+  display: inline-block;
+  max-width: 88%;
+  margin-top: -6%;
+  margin-bottom: -4%;
+}
+
+#feature .full-width {
+  border-top: 1px solid #dedede;
+  margin: -1.2em -1.2em 1.2em;
+  overflow: hidden;
+}
+
+/* --- #jobs --- */
+
+#jobs {
+  margin-top: .4em;
+}
+
+.select-search {
+  padding-top: 1.2em;
+  padding-bottom: 1.2em;
+  border-top: 1px solid #ddd;
+}
+
+#market,
+#view-jobs-button {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+#view-jobs-button {
+  font-size: 1.05em;
+  margin-top: 1.142857142857143em;/* 1.2em */
+}
+
+/* job status */
+
+#view-jobs-status {
+  display: none;
+}
+
+#find-jobs:target #view-jobs-search {
+  display: none;
+}
+
+#find-jobs:target #view-jobs-status {
+  display: inline;
+}
+
+#view-jobs-button b {
+  font-size: 1.371428571428571em;
+  letter-spacing: .025em;
+}
+
+p.job-market {
+  margin-top: .4em;
+}
+
+.job-link {
+  display: none;
+}
+
+/* --- #courses --- */
+
+#courses .course-artwork {
+  display: inline-block;
+  width: 20%;
+  height: 0;
+  vertical-align: middle;
+  padding-bottom: 20%;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: 1.2em;
+}
+
+#courses .course-artwork img {
+  max-width: 86%;
+  margin-top: 12%;
+}
+
+#courses h3 {
+  display: inline-block;
+  width: 65%;
+  vertical-align: middle;
+}
+
+/* --- #webinars --- */
+
+.webinar figure {
+  margin-bottom: 1.2em;
+}
+
+.webinar .poster-mask {
+  position: relative;
+  height: 0;
+  padding-bottom: 56.25%;
+  overflow: hidden;
+}
+
+.webinar .poster-mask img {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  margin: auto;
+}
+
+.webinar header {
+  margin-bottom: 0;
+}
+
+.webinar header p {
+  margin-top: .4em;
+}
+
+/* --- breakpoints --- */
+
+@media (min-width: 48em) {
+
+  /* --- legacy layout --- */
+
+  .col ul {
+    margin: 0 -.6em;
+  }
+
+  .col li {
+    float: left;
+    width: 100%;
+    box-sizing: border-box;
+    padding-left: .6em;
+    padding-right: .6em;
+  }
+
+  .col-2 li {
+    width: 50%;
+  }
+
+  .col-3 li {
+    width: 33.333%;
+  }
+
+  #feature .card-main {
+    min-height: 24em;
+  }
+
+
+  /* --- section / header paragraph --- */
+
+  #about .mission,
+  .section header p {
+    width: 82%;
+  }
+
+  /* --- #feature --- */
+
+  #feature {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  /* --- #jobs --- */
+
+  #market {
+    max-width: 24em;
+  }
+
+  #view-jobs-button {
+    margin-top: 0;
+    margin-left: 1.142857142857143em;/* 1.2em */
+  }
+
+  .job-post {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .job-post a:hover {
+    border-bottom: 1px solid #f8971d !important; /* ! */
+  }
+
+  .job-title,
+  .job-market {
+    display: inline-block;
+    vertical-align: middle;
+    box-sizing: border-box;
+  }
+
+  .job-title {
+    width: 45%;
+    padding-right: 1.2em;
+  }
+
+  p.job-market {
+    width: 40%;
+    padding-right: 1.2em;
+    margin-top: 0;
+  }
+
+  .job-link {
+    display: inline;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: .625em;
+    height: 1.6em;
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+
+  .job-link a {
+    font: normal 1.15em/1 "Helvetica Neue", Helvetica, sans-serif;
+  }
+
+
+  /* --- modern layout --- */
+
+  /* work in progress */
+
+   @supports (display: grid) {
+
+    .job-post {
+      display: grid;
+      grid-template-columns: 2fr 2fr 1fr;
+      grid-gap: 1.2em;
+    }
+
+    .job-title,
+    p.job-market,
+    .job-link {
+      width: auto;
+      padding: 0;
+      align-self: center;
+    }
+
+    .job-link {
+      display: block;
+      position: static;
+      top: auto;
+      bottom: auto;
+      right: 0;
+      height: auto;
+      text-align: right;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+  }
+
+}
