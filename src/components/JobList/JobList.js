@@ -8,7 +8,7 @@ import {
   getMarketFromLatLong,
 } from '../../util/util';
 
-import { MARKETS } from '../../util/constants';
+import { DEFAULT_MARKET } from '../../util/constants';
 
 import {
   JobListing,
@@ -31,7 +31,7 @@ class JobList extends Component {
     const { match } = props;
 
     // choose boston as default market
-    let market = MARKETS[10];
+    let market = DEFAULT_MARKET;
 
     if (match && match.params) {
       if (

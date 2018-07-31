@@ -1,7 +1,10 @@
 import _ from 'lodash';
 import LatLon from 'geodesy/latlon-vectors';
 
-import { MARKETS } from './constants';
+import {
+  DEFAULT_MARKET,
+  MARKETS,
+} from './constants';
 import { loadJobsForMarket } from './jobApi';
 
 /**
@@ -32,12 +35,10 @@ export const getMarketFromLatLong = (position) => {
  * @param {*} marketId the ID to search for.
  */
 export const getMarketFromId = (marketId) => {
-  if (!marketId) return undefined;
-  if (Number.isNaN(marketId)) return undefined;
-
-  let market = MARKETS[marketId];
-  // default to boston if we do not have a valid marketId supplied
-  if (!market) market = MARKETS['10'];
+  let market = DEFAULT_MARKET;
+  if (marketId in MARKETS) {
+    market = MARKETS[marketId];
+  }
 
   return market;
 };
