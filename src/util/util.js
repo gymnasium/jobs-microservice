@@ -53,7 +53,7 @@ export const getMarketFromLatLong = (position) => {
 };
 
 /**
- * Returns a market, given its id. Returns undefined if id is not found.
+ * Returns a market, given its id. Returns the default market if id is not found.
  * @param {*} marketId the ID to search for.
  */
 export const getMarketFromId = (marketId) => {
