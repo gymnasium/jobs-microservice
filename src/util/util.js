@@ -67,4 +67,3 @@ export const generateUTMSlug = (
   const UTMSlug = `utm_source=${utmSource}&utm_medium=${utmMedium}&utm_campaign=${utmCampaign}`;
   return UTMSlug;
 };
-
