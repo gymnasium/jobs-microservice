@@ -58,7 +58,12 @@ class MarketDropdown extends Component {
 
     return (
       <React.Fragment>
+        {/* eslint-disable jsx-a11y/label-has-for */}
+        <label className="visuallyhidden" htmlFor="market" aria-label="Choose a Location" />
+        {/* eslint-ea jsx-a11y/label-has-for */}
         <select
+          id="market"
+          name="market"
           className="gym-microservice-market-dropdown"
           onChange={this.handleMarketChanged}
           value={marketId}
