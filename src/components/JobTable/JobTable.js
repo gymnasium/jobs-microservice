@@ -10,7 +10,10 @@ import JobTableRow from './JobTableRow';
 import './JobTable.css';
 
 const JobTable = (props) => {
-  const { jobs } = props;
+  const {
+    jobs,
+    market,
+  } = props;
 
   if (!jobs) {
     return (
@@ -22,7 +25,8 @@ const JobTable = (props) => {
     <div className="section-content">
       <header>
         <h2>
-          UX Jobs
+          UX Jobs in
+          {` ${market.name}`}
         </h2>
       </header>
       <form method="get" id="find-jobs">
@@ -72,6 +76,7 @@ JobTable.defaultProps = {
 };
 
 JobTable.propTypes = {
+  market: PropTypes.shape({}).isRequired,
   jobs: PropTypes.shape({}),
 };
 

@@ -7,6 +7,28 @@ import {
 } from './constants';
 import { loadJobsForMarket } from './jobApi';
 
+export const getMarketFromURLParams = (
+  marketId,
+  latitude = 35.227087, // lat for Charlotte
+  longitude = -80.843127, // long for Charlotte
+) => {
+  // choose boston as default market, if all else fails
+  let market = MARKETS[10];
+
+  // if a marketId is provided, we use that
+  if (marketId) {
+    market = getMarketFromId(marketId);
+  } else if (latitude && longitude) {
+    // if lat/long are provided, we load a market from there
+    // this will fall back to the defaults provided to this function
+    market = getMarketFromLatLong({
+      latitude,
+      longitude,
+    });
+  }
+  return market;
+};
+
 /**
  * Get locale nearest to the input position.
  * @param {*} position - object containing lat and long for which we will retun the nearest locale
