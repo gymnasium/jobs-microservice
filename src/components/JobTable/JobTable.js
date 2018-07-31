@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { map } from 'lodash';
 
 // our components
-import { MarketDropdown } from '../';
+import { MarketDropdown } from '..';
 import JobTableRow from './JobTableRow';
 
 // css for this component
@@ -21,12 +21,25 @@ const JobTable = (props) => {
   return (
     <div className="section-content">
       <header>
-        <h2>UX Jobs</h2>
+        <h2>
+          UX Jobs
+        </h2>
       </header>
       <form method="get" id="find-jobs">
         <div className="select-search">
           <MarketDropdown />
-          <button className="gym-button" id="view-jobs-button"><b id="view-jobs-search">Find UX Jobs</b><b id="view-jobs-status">Loading…</b></button>
+          <button
+            type="button"
+            className="gym-button"
+            id="view-jobs-button"
+          >
+            <b id="view-jobs-search">
+              Find UX Jobs
+            </b>
+            <b id="view-jobs-status">
+              Loading…
+            </b>
+          </button>
         </div>
         <div id="view-jobs-results">
           <div className="col">
@@ -35,7 +48,11 @@ const JobTable = (props) => {
             </ul>
           </div>
           <div className="cta" role="presentation">
-            <a className="gym-button" href="https://aquent.com/find-work/?k=&amp;l=all&amp;ux=on#content" title="Find Work — Aquent" target="_blank" rel="noopener noreferrer"><b>View More Jobs</b></a>
+            <a className="gym-button" href="https://aquent.com/find-work/?k=&amp;l=all&amp;ux=on#content" title="Find Work — Aquent" target="_blank" rel="noopener noreferrer">
+              <b>
+                View More Jobs
+              </b>
+            </a>
           </div>
         </div>
       </form>

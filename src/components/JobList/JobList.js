@@ -13,7 +13,7 @@ import { DEFAULT_MARKET } from '../../util/constants';
 import {
   JobListing,
   MarketDropdown,
-} from '../';
+} from '..';
 
 import './JobList.css';
 
@@ -35,8 +35,8 @@ class JobList extends Component {
 
     if (match && match.params) {
       if (
-        match.params.latitude &&
-        match.params.longitude
+        match.params.latitude
+        && match.params.longitude
       ) {
         /* eslint-disable prefer-destructuring */
         latitude = match.params.latitude;
@@ -86,8 +86,12 @@ class JobList extends Component {
     return (
       <article id="gym-microservice-find-work" className="job-list">
         <header>
-          <h2>Find Work.</h2>
-          <p>Find work that best fits your skills, in your area.</p>
+          <h2>
+            Find Work.
+          </h2>
+          <p>
+            Find work that best fits your skills, in your area.
+          </p>
         </header>
         <form method="get" id="find-work-search">
           <div className="field select row">
@@ -101,7 +105,8 @@ class JobList extends Component {
               Viewing jobs in
               {' '}
               <var className="job-location">
-                {market && market.name}{'…'}
+                {market && market.name}
+                {'…'}
               </var>
             </h3>
             <ul>

@@ -4,7 +4,7 @@ import { map, sortBy } from 'lodash';
 
 import { getMarketFromId } from '../../util/util';
 import { MARKETS } from '../../util/constants';
-import { GymButton } from '../';
+import { GymButton } from '..';
 
 // CSS
 import './MarketDropdown.css';
