@@ -385,6 +385,9 @@ const MARKETS = {
   },
 };
 
+const DEFAULT_MARKET = MARKETS[10]; // boston
+
 module.exports = {
   MARKETS,
+  DEFAULT_MARKET,
 };
