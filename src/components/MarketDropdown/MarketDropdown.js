@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { map, sortBy } from 'lodash';
 
-import { getMarketFromId } from '../../util/util';
 import { MARKETS } from '../../util/constants';
-import { GymButton } from '..';
 
 // CSS
 import './MarketDropdown.css';
@@ -17,37 +15,25 @@ class MarketDropdown extends Component {
 
     const { initialMarketId } = props;
 
-    const market = getMarketFromId(initialMarketId);
-
     this.state = {
       marketId: initialMarketId,
-      market,
     };
   }
 
   handleMarketChanged = () => {
+    const { onMarketChanged } = this.props;
     const { selectedIndex } = this.marketDropdown;
     if (!selectedIndex) return;
 
     const marketId = this.marketDropdown.options[selectedIndex].value;
-    const market = getMarketFromId(marketId);
 
     this.setState({
       marketId,
-      market,
     });
-  }
 
-  handleViewJobsClicked = (event) => {
-    const { onViewJobsClicked } = this.props;
-    const { market } = this.state;
-
-    if (event && event.preventDefault) {
-      event.preventDefault();
-    }
-
-    if (onViewJobsClicked && typeof onViewJobsClicked === 'function') {
-      onViewJobsClicked(market);
+    if (onMarketChanged && typeof onMarketChanged === 'function') {
+      console.log(`market changed to ${marketId} 👍`);
+      onMarketChanged(marketId);
     }
   }
 
@@ -64,11 +50,14 @@ class MarketDropdown extends Component {
         <select
           id="market"
           name="market"
-          className="gym-microservice-market-dropdown"
+          required
+          className="form-control"
           onChange={this.handleMarketChanged}
           value={marketId}
           ref={(el) => { this.marketDropdown = el; }}
         >
+          <option value="" disabled>Select a location:</option>
+          <option value="" disabled>——————</option>
           {map(sortBy(MARKETS, ['name']), market => (
             <option
               key={market.id}
@@ -78,13 +67,6 @@ class MarketDropdown extends Component {
             </option>
           ))}
         </select>
-        <GymButton
-          className="gym-button"
-          id="view-jobs-button-2"
-          onClick={this.handleViewJobsClicked}
-        >
-          View Jobs
-        </GymButton>
       </React.Fragment>
     );
   }
@@ -92,12 +74,12 @@ class MarketDropdown extends Component {
 
 MarketDropdown.propTypes = {
   initialMarketId: PropTypes.number,
-  onViewJobsClicked: PropTypes.func,
+  onMarketChanged: PropTypes.func,
 };
 
 MarketDropdown.defaultProps = {
   initialMarketId: 10,
-  onViewJobsClicked: () => null,
+  onMarketChanged: () => null,
 };
 
 export default MarketDropdown;

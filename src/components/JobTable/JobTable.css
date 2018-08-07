@@ -308,10 +308,6 @@ header.card-header,
 
 /* job status */
 
-#view-jobs-status {
-  display: none;
-}
-
 #find-jobs:target #view-jobs-search {
   display: none;
 }

@@ -15,9 +15,6 @@ class JobsView extends Component {
   constructor(props) {
     super(props);
 
-    this.handleJobsLoaded = this.handleJobsLoaded.bind(this);
-    this.handleMarketChanged = this.handleMarketChanged.bind(this);
-
     const { match } = props;
 
     const {
@@ -34,26 +31,28 @@ class JobsView extends Component {
     );
 
     this.state = {
+      initialMarket: market,
+      loading: true,
       market,
       jobs: {},
       view,
     };
 
-    if (market && market.id) {
-      fetchJobsForMarket(market.id).then(this.handleJobsLoaded);
-    }
+    this.searchForJobsAsync(market);
   }
 
-  handleJobsLoaded(jobs) {
+  handleJobsLoaded = (jobs) => {
     this.setState({
       jobs,
+      loading: false,
     });
   }
 
-  handleMarketChanged(market) {
+  searchForJobsAsync = (market) => {
     if (market) {
       this.setState({
         market,
+        loading: true,
       });
       fetchJobsForMarket(market.id).then(this.handleJobsLoaded);
     }
@@ -61,16 +60,26 @@ class JobsView extends Component {
 
   render() {
     const {
-      market,
+      initialMarket,
       jobs,
+      loading,
+      market,
       view,
     } = this.state;
 
     switch (view) {
       case 'table':
-        return <JobTable jobs={jobs} market={market} marketChanged={this.handleMarketChanged} />;
+        return (
+          <JobTable
+            initialMarket={initialMarket}
+            jobs={jobs}
+            market={market}
+            refreshJobsList={this.searchForJobsAsync}
+            loading={loading}
+          />
+        );
       default:
-        return <JobList jobs={jobs} market={market} marketChanged={this.handleMarketChanged} />;
+        return <JobList jobs={jobs} market={market} marketChanged={this.searchForJobsAsync} />;
     }
   }
 }

@@ -75,7 +75,10 @@ class JobList extends Component {
 }
 
 JobList.propTypes = {
-  jobs: PropTypes.shape({}).isRequired,
+  jobs: PropTypes.oneOfType([
+    PropTypes.shape({}),
+    PropTypes.arrayOf(PropTypes.shape({})),
+  ]).isRequired,
   market: PropTypes.shape({}).isRequired,
   marketChanged: PropTypes.func.isRequired,
 };

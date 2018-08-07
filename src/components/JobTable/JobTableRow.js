@@ -1,21 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { generateUTMSlug } from '../../util/util';
+
 const JobTableRow = ({ job }) => {
   if (!job) return null;
+
+  const jobURL = `https://aquent.com/find-work/${job.jobId}?${generateUTMSlug()}`;
 
   return (
     <li className="job-post">
       <h3 className="job-title">
-        <a href="https://aquent.com/find-work/?k=&amp;l=all&amp;ux=on#content">
-          Mid / Senior UX Designer
+        <a href={jobURL} target="_blank" rel="noopener noreferrer">
+          {job.title}
         </a>
       </h3>
       <p className="job-market">
-        Greater Boston Area
+        {job.marketId}
       </p>
       <div className="job-link">
-        <a href="https://aquent.com/find-work/?k=&amp;l=all&amp;ux=on#content" target="_blank" rel="noopener noreferrer">
+        <a href={jobURL} target="_blank" rel="noopener noreferrer">
           <b>
             Learn More
           </b>
