@@ -37,7 +37,10 @@ class JobsView extends Component {
       jobs: {},
       view,
     };
+  }
 
+  componentDidMount() {
+    const { market } = this.state;
     this.searchForJobsAsync(market);
   }
 
