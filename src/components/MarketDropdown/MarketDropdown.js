@@ -56,8 +56,12 @@ class MarketDropdown extends Component {
           value={marketId}
           ref={(el) => { this.marketDropdown = el; }}
         >
-          <option value="" disabled>Select a location:</option>
-          <option value="" disabled>——————</option>
+          <option value="" disabled>
+            Select a location:
+          </option>
+          <option value="" disabled>
+            ——————
+          </option>
           {map(sortBy(MARKETS, ['name']), market => (
             <option
               key={market.id}
