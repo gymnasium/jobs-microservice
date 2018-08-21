@@ -3,5 +3,9 @@ export {
   JobList,
 } from './JobList';
 
+export { JobsView } from './JobsView';
+
+export { JobTable } from './JobTable';
+
 export { MarketDropdown } from './MarketDropdown';
 export { GymButton } from './GymButton';

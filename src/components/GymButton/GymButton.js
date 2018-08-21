@@ -12,10 +12,13 @@ const GymButton = (props) => {
 
   return (
     <button
+      type="button"
       className={`gym-microservice-gym-button ${className}`}
       {...rest}
     >
-      <b>{children}</b>
+      <b>
+        {children}
+      </b>
     </button>
   );
 };
@@ -31,4 +34,3 @@ GymButton.propTypes = {
 };
 
 export default GymButton;
-

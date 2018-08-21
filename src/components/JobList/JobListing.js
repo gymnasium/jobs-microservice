@@ -55,9 +55,13 @@ const JobListing = (props) => {
     <li className="row gym-microservice-job-listing">
       <a href={generateURLForJob({ campaign, job, market })} target="_blank" rel="noopener noreferrer">
         <div className="job-post">
-          <b className="job-title col-xs-8">{job.title}</b>
+          <b className="job-title col-xs-8">
+            {job.title}
+          </b>
           {' '}
-          <em className="job-market col-xs-4 text-right">{jobLocation}</em>
+          <em className="job-market col-xs-4 text-right">
+            {jobLocation}
+          </em>
         </div>
       </a>
     </li>
