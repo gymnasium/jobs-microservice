@@ -29,7 +29,7 @@ class JobList extends Component {
     } = this.props;
 
     return (
-      <article id="gym-microservice-find-work" className="job-list">
+      <article id="gym-microservice-find-work" className="job-list container-fluid">
         <header>
           <h2>
             Find Work.
