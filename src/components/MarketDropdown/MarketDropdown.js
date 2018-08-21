@@ -32,7 +32,6 @@ class MarketDropdown extends Component {
     });
 
     if (onMarketChanged && typeof onMarketChanged === 'function') {
-      console.log(`market changed to ${marketId} 👍`);
       onMarketChanged(marketId);
     }
   }
