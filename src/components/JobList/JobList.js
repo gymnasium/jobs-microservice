@@ -10,12 +10,7 @@ import {
 import './JobList.css';
 
 class JobList extends Component {
-  constructor(props) {
-    super(props);
-    this.handleMarketChanged = this.requestMarketChanged.bind(this);
-  }
-
-  requestMarketChanged(market) {
+  requestMarketChanged = (market) => {
     const { marketChanged } = this.props;
     if (market) {
       marketChanged(market);
