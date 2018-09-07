@@ -3,7 +3,10 @@ import PropTypes from 'prop-types';
 import { map } from 'lodash';
 
 // our components
-import { MarketDropdown } from '..';
+import {
+  ErrorBoundary,
+  MarketDropdown,
+} from '..';
 import JobTableRow from './JobTableRow';
 
 import CONSTANTS from '../../util/constants';
@@ -64,11 +67,13 @@ class JobTable extends Component {
             </header>
             <form method="get" id="find-jobs">
               <div className="select-search">
-                <MarketDropdown
-                  initialMarketId={initialMarket.id || CONSTANTS.DEFAULT_MARKET.id}
-                  market={market}
-                  onMarketChanged={this.handleMarketChanged}
-                />
+                <ErrorBoundary>
+                  <MarketDropdown
+                    initialMarketId={initialMarket.id || CONSTANTS.DEFAULT_MARKET.id}
+                    market={market}
+                    onMarketChanged={this.handleMarketChanged}
+                  />
+                </ErrorBoundary>
                 <button
                   disabled={loading}
                   type="button"
