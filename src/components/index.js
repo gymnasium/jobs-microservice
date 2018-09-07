@@ -1,3 +1,5 @@
+export { ErrorBoundary } from './ErrorBoundary';
+
 export {
   JobListing,
   JobList,

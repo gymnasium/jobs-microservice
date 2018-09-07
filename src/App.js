@@ -6,7 +6,10 @@ import {
 } from 'react-router-dom';
 
 // components
-import { JobsView } from './components';
+import {
+  ErrorBoundary,
+  JobsView,
+} from './components';
 
 
 // this sets up the URL scheme for this microservice.
@@ -17,14 +20,16 @@ import { JobsView } from './components';
 // any other parameters are decided on by the view which is rendered.
 const App = (/* props */) => (
   <div className="App">
-    <Router>
-      <Switch>
-        <Route path="/:view/:latitude/:longitude" component={JobsView} />
-        <Route path="/:view/:marketId" component={JobsView} />
-        <Route path="/:view" component={JobsView} />
-        <Route path="/" component={JobsView} />
-      </Switch>
-    </Router>
+    <ErrorBoundary>
+      <Router>
+        <Switch>
+          <Route path="/:view/:latitude/:longitude" component={JobsView} />
+          <Route path="/:view/:marketId" component={JobsView} />
+          <Route path="/:view" component={JobsView} />
+          <Route path="/" component={JobsView} />
+        </Switch>
+      </Router>
+    </ErrorBoundary>
   </div>
 );
 
