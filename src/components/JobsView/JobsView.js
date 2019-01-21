@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import qs from 'query-string';
 
 import {
   fetchJobsForMarket,
@@ -11,11 +12,17 @@ import {
   JobTable,
 } from '..';
 
+const DEFAULT_MINOR_SEGMENT = 94;
+const DEFAULT_MAJOR_SEGMENT = 100;
+
 class JobsView extends Component {
   constructor(props) {
     super(props);
 
-    const { match } = props;
+    const {
+      location,
+      match,
+    } = props;
 
     const {
       latitude,
@@ -30,9 +37,20 @@ class JobsView extends Component {
       longitude,
     );
 
+    const parsed = qs.parse(location.search);
+    
+    // convert url params from underscore separated to camel case
+    // forex: minor_segment to minorSegment
+    const {
+      minor_segment: minorSegment,
+      major_segment: majorSegment,
+    } = parsed;
+
     this.state = {
       initialMarket: market,
       loading: true,
+      minorSegment: minorSegment || DEFAULT_MINOR_SEGMENT,
+      majorSegment: majorSegment || DEFAULT_MAJOR_SEGMENT,
       market,
       jobs: {},
       view,
@@ -40,8 +58,16 @@ class JobsView extends Component {
   }
 
   componentDidMount() {
-    const { market } = this.state;
-    this.searchForJobsAsync(market);
+    const {
+      majorSegment,
+      market,
+      minorSegment,
+    } = this.state;
+  
+    this.searchForJobsAsync(market, {
+      majorSegment,
+      minorSegment,
+    });
   }
 
   handleJobsLoaded = (jobs) => {
@@ -51,13 +77,14 @@ class JobsView extends Component {
     });
   }
 
-  searchForJobsAsync = (market) => {
+  searchForJobsAsync = (market, options) => {
     if (market) {
       this.setState({
         market,
+        ...options,
         loading: true,
       });
-      fetchJobsForMarket(market.id).then(this.handleJobsLoaded);
+      fetchJobsForMarket(market.id, options).then(this.handleJobsLoaded);
     }
   }
 
@@ -82,7 +109,13 @@ class JobsView extends Component {
           />
         );
       default:
-        return <JobList jobs={jobs} market={market} marketChanged={this.searchForJobsAsync} />;
+        return (
+          <JobList
+            jobs={jobs}
+            market={market}
+            marketChanged={this.searchForJobsAsync}
+          />
+        );
     }
   }
 }
@@ -92,6 +125,7 @@ JobsView.defaultProps = {
 
 JobsView.propTypes = {
   match: PropTypes.shape({}).isRequired,
+  location: PropTypes.shape({}).isRequired,
 };
 
 export default JobsView;
