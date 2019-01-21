@@ -4,10 +4,15 @@ import fetch from 'isomorphic-fetch';
 
 export const loadJobsForMarket = (
   marketId,
-  // minorSegments = [],
-  limit = 20,
-  page = 0,
+  options = {},
 ) => new Promise((res /* , reject */) => {
+  const {
+    majorSegment,
+    minorSegment,
+    limit,
+    page,
+  } = options;
+
   const apiUrl = `https://aquent.com/api/content/render/false/type/json/query/+contentType:AquentJob%20+AquentJob.isPosted:true%20+languageId:1%20+deleted:false%20+working:true%20+AquentJob.locationId:${marketId}/orderby/AquentJob.postedDate%20desc/limit/${limit}/offset/${page}`;
 
   fetch(
