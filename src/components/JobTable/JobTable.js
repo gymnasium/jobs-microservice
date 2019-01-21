@@ -110,14 +110,7 @@ class JobTable extends Component {
 }
 
 JobTable.defaultProps = {
-  jobs: {
-    1: {
-      name: 'hi',
-    },
-    2: {
-      name: 'hello',
-    },
-  },
+  jobs: {},
 };
 
 JobTable.propTypes = {
