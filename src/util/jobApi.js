@@ -2,6 +2,9 @@
 
 import fetch from 'isomorphic-fetch';
 
+const DEFAULT_MINOR_SEGMENT = 94;
+const DEFAULT_MAJOR_SEGMENT = 100;
+
 export const loadJobsForMarket = (
   marketId,
   options = {},

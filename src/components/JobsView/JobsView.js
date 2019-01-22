@@ -12,9 +12,6 @@ import {
   JobTable,
 } from '..';
 
-const DEFAULT_MINOR_SEGMENT = 94;
-const DEFAULT_MAJOR_SEGMENT = 100;
-
 class JobsView extends Component {
   constructor(props) {
     super(props);
@@ -49,8 +46,8 @@ class JobsView extends Component {
     this.state = {
       initialMarket: market,
       loading: true,
-      minorSegment: minorSegment || DEFAULT_MINOR_SEGMENT,
-      majorSegment: majorSegment || DEFAULT_MAJOR_SEGMENT,
+      minorSegment,
+      majorSegment,
       market,
       jobs: {},
       view,
