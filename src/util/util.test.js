@@ -7,6 +7,6 @@ it('returns the correct cifty for a given Lat/Long', () => {
     longitude: '-80.8474005',
   });
 
-  expect(market.name).toBe('Charlotte');
-  market.id.shouldBe(60);
+  expect(market.name).toEqual('Charlotte');
+  expect(market.id).toEqual(61);
 });
