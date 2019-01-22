@@ -35,7 +35,7 @@ class JobsView extends Component {
     );
 
     const parsed = qs.parse(location.search);
-    
+
     // convert url params from underscore separated to camel case
     // forex: minor_segment to minorSegment
     const {
@@ -60,7 +60,7 @@ class JobsView extends Component {
       market,
       minorSegment,
     } = this.state;
-  
+
     this.searchForJobsAsync(market, {
       majorSegment,
       minorSegment,
