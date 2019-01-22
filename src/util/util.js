@@ -65,7 +65,7 @@ export const getMarketFromId = (marketId) => {
   return market;
 };
 
-export const fetchJobsForMarket = async (marketId, minorSegments = []) => {
+export const fetchJobsForMarket = async (marketId, options) => {
   // make sure a marketId was supplied
   if (!marketId) return null;
 
@@ -74,7 +74,7 @@ export const fetchJobsForMarket = async (marketId, minorSegments = []) => {
 
   // go call the API for that market
   try {
-    return await loadJobsForMarket(marketId, minorSegments);
+    return await loadJobsForMarket(marketId, options);
   } catch (e) {
     console.error(e);
     return null;

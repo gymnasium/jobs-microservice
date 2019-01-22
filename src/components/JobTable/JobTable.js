@@ -60,11 +60,6 @@ class JobTable extends Component {
       <div className="content-wrapper">
         <section className="section">
           <div className="section-content">
-            <header>
-              <h2>
-                UX Jobs
-              </h2>
-            </header>
             <form method="get" id="find-jobs">
               <div className="select-search">
                 <ErrorBoundary>
@@ -83,7 +78,7 @@ class JobTable extends Component {
                 >
                   {!loading ? (
                     <b id="view-jobs-search">
-                      Find UX Jobs
+                      Find Jobs
                     </b>
                   ) : (
                     <b id="view-jobs-status">
@@ -115,14 +110,7 @@ class JobTable extends Component {
 }
 
 JobTable.defaultProps = {
-  jobs: {
-    1: {
-      name: 'hi',
-    },
-    2: {
-      name: 'hello',
-    },
-  },
+  jobs: {},
 };
 
 JobTable.propTypes = {
