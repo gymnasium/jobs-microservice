@@ -142,7 +142,6 @@
 .section-content {
   background: #fff;
   padding: 1.2em;
-  border: 1px solid #ccc;
   border-radius: .1875em;
 }
 
@@ -174,8 +173,6 @@
 /* --- columns --- */
 
 .col {
-  border-top: 1px solid #ddd;
-  border-bottom: 1px solid #ddd;
   overflow: hidden;
 }
 
@@ -292,7 +289,6 @@ header.card-header,
 .select-search {
   padding-top: 1.2em;
   padding-bottom: 1.2em;
-  border-top: 1px solid #ddd;
 }
 
 #market,
