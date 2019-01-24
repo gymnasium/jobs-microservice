@@ -2,7 +2,7 @@
 
 import fetch from 'isomorphic-fetch';
 
-const DEFAULT_MINOR_SEGMENT = 94;
+const DEFAULT_MINOR_SEGMENT = 96;
 const DEFAULT_MAJOR_SEGMENT = 100;
 
 export const loadJobsForMarket = (
@@ -16,7 +16,8 @@ export const loadJobsForMarket = (
     page,
   } = options;
 
-  const apiUrl = `https://aquent.com/api/content/render/false/type/json/query/+contentType:AquentJob%20+AquentJob.isPosted:true%20+languageId:1%20+deleted:false%20+working:true%20+AquentJob.locationId:${marketId}/orderby/AquentJob.postedDate%20desc/limit/${limit}/offset/${page}`;
+  const minorSegmentQuery = `%20+AquentJob.minorSpecialty1:${minorSegment || DEFAULT_MINOR_SEGMENT}`;
+  const apiUrl = `https://aquent.com/api/content/render/false/type/json/query/+contentType:AquentJob%20+AquentJob.isPosted:true%20+languageId:1%20+deleted:false%20+working:true%20+AquentJob.locationId:${marketId}${minorSegmentQuery}/orderby/AquentJob.postedDate%20desc/limit/${limit}/offset/${page}`;
 
   fetch(
     apiUrl,
