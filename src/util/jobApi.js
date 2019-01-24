@@ -13,11 +13,16 @@ export const loadJobsForMarket = (
     page,
   } = options;
 
-  const minorSegmentQuery = minorSegment
-    ? `%20+AquentJob.minorSpecialty1:${minorSegment}`
-    : '';
+  let minorSegmentQuery = '';
+  if (minorSegment) minorSegmentQuery = `%20+AquentJob.minorSpecialty1:${minorSegment}`;
 
-  const apiUrl = `https://aquent.com/api/content/render/false/type/json/query/+contentType:AquentJob%20+AquentJob.isPosted:true%20+languageId:1%20+deleted:false%20+working:true%20+AquentJob.locationId:${marketId}${minorSegmentQuery}/orderby/AquentJob.postedDate%20desc/limit/${limit}/offset/${page}`;
+  let limitQuery = '';
+  if (limit) limitQuery = `/limit/${limit}`;
+
+  let pageQuery = '';
+  if (page) pageQuery = `/offset/${page}`;
+
+  const apiUrl = `https://aquent.com/api/content/render/false/type/json/query/+contentType:AquentJob%20+AquentJob.isPosted:true%20+languageId:1%20+deleted:false%20+working:true%20+AquentJob.locationId:${marketId}${minorSegmentQuery}/orderby/AquentJob.postedDate%20desc${limitQuery}${pageQuery}`;
 
   fetch(
     apiUrl,

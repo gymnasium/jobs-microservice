@@ -55,12 +55,7 @@ class JobsView extends Component {
   }
 
   componentDidMount() {
-    const {
-      options,
-      market,
-    } = this.state;
-
-    this.searchForJobsAsync(market, options);
+    this.searchForJobsAsync();
   }
 
   handleJobsLoaded = (jobs) => {
@@ -70,21 +65,25 @@ class JobsView extends Component {
     });
   }
 
-  searchForJobsAsync = (market, options) => {
-    if (market) {
-      this.setState({
-        market,
-        options,
-        loading: true,
-      }, () => {
-        const {
-          market: mkt,
-          options: opts,
-        } = this.state;
+  handleMarketChanged = (market) => {
+    this.setState({ market });
+  }
 
-        fetchJobsForMarket(mkt.id, opts).then(this.handleJobsLoaded);
-      });
+  searchForJobsAsync = async (marketOverride) => {
+    const { market, options } = this.state;
+    try {
+      let marketId = market.id;
+      if (marketOverride && marketOverride.id) {
+        marketId = marketOverride.id;
+        this.setState({ market: marketOverride });
+      }
+
+      const jobs = await fetchJobsForMarket(marketId, options);
+      this.handleJobsLoaded(jobs);
+    } catch (e) {
+      console.log('error', e.message || e);
     }
+    this.setState({ loading: false });
   }
 
   render() {

@@ -7,11 +7,13 @@ import {
   MarketDropdown,
 } from '..';
 
+import * as UTIL from '../../util/util';
 import './JobList.css';
 
 class JobList extends Component {
-  requestMarketChanged = (market) => {
+  requestMarketChanged = (marketId) => {
     const { marketChanged } = this.props;
+    const market = UTIL.getMarketFromId(marketId);
     if (market) {
       marketChanged(market);
     }
@@ -37,7 +39,7 @@ class JobList extends Component {
           <div className="field select row">
             <MarketDropdown
               initialMarketId={market.id}
-              onViewJobsClicked={this.requestMarketChanged}
+              onMarketChanged={this.requestMarketChanged}
             />
           </div>
           <section className="job-board">
