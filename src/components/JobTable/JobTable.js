@@ -93,13 +93,6 @@ class JobTable extends Component {
                     {map(jobs, (job, idx) => <JobTableRow job={job} key={`job-table-row-${idx}`} />)}
                   </ul>
                 </div>
-                <div className="cta" role="presentation">
-                  <a className="gym-button" href="https://aquent.com/find-work/?k=&amp;l=all&amp;ux=on#content" title="Find Work — Aquent" target="_blank" rel="noopener noreferrer">
-                    <b>
-                      View More Jobs
-                    </b>
-                  </a>
-                </div>
               </div>
             </form>
           </div>
