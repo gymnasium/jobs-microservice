@@ -36,18 +36,18 @@ class JobsView extends Component {
 
     const parsed = qs.parse(location.search);
 
-    // convert url params from underscore separated to camel case
-    // forex: minor_segment to minorSegment
     const {
-      minor_segment: minorSegment,
-      major_segment: majorSegment,
+      minorSegment,
+      majorSegment,
     } = parsed;
 
     this.state = {
       initialMarket: market,
       loading: true,
-      minorSegment,
-      majorSegment,
+      options: {
+        minorSegment,
+        majorSegment,
+      },
       market,
       jobs: {},
       view,
@@ -56,15 +56,11 @@ class JobsView extends Component {
 
   componentDidMount() {
     const {
-      majorSegment,
+      options,
       market,
-      minorSegment,
     } = this.state;
 
-    this.searchForJobsAsync(market, {
-      majorSegment,
-      minorSegment,
-    });
+    this.searchForJobsAsync(market, options);
   }
 
   handleJobsLoaded = (jobs) => {
@@ -78,10 +74,16 @@ class JobsView extends Component {
     if (market) {
       this.setState({
         market,
-        ...options,
+        options,
         loading: true,
+      }, () => {
+        const {
+          market: mkt,
+          options: opts,
+        } = this.state;
+
+        fetchJobsForMarket(mkt.id, opts).then(this.handleJobsLoaded);
       });
-      fetchJobsForMarket(market.id, options).then(this.handleJobsLoaded);
     }
   }
 
