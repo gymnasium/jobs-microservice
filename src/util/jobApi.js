@@ -2,7 +2,7 @@
 
 import fetch from 'isomorphic-fetch';
 
-export const loadJobsForMarket = (
+export const loadJobs = (
   marketId,
   options = {},
 ) => new Promise((res /* , reject */) => {

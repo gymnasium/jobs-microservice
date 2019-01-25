@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import qs from 'query-string';
 
 import {
-  fetchJobsForMarket,
+  fetchJobs,
   getMarketFromURLParams,
 } from '../../util/util';
 
@@ -78,7 +78,7 @@ class JobsView extends Component {
         this.setState({ market: marketOverride });
       }
 
-      const jobs = await fetchJobsForMarket(marketId, options);
+      const jobs = await fetchJobs(marketId, options);
       this.handleJobsLoaded(jobs);
     } catch (e) {
       console.log('error', e.message || e);
