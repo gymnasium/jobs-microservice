@@ -2,16 +2,19 @@
 
 import fetch from 'isomorphic-fetch';
 
-export const loadJobsForMarket = (
+export const loadJobs = async (
   marketId,
   options = {},
-) => new Promise((res /* , reject */) => {
+) => {
   const {
     majorSegment,
     minorSegment,
     limit,
     page,
   } = options;
+
+  let marketQuery = '';
+  if (marketId) marketQuery = `%20+AquentJob.locationId:${marketId}`;
 
   let minorSegmentQuery = '';
   if (minorSegment) minorSegmentQuery = `%20+AquentJob.minorSpecialty1:${minorSegment}`;
@@ -22,22 +25,61 @@ export const loadJobsForMarket = (
   let pageQuery = '';
   if (page) pageQuery = `/offset/${page}`;
 
-  const apiUrl = `https://aquent.com/api/content/render/false/type/json/query/+contentType:AquentJob%20+AquentJob.isPosted:true%20+languageId:1%20+deleted:false%20+working:true%20+AquentJob.locationId:${marketId}${minorSegmentQuery}/orderby/AquentJob.postedDate%20desc${limitQuery}${pageQuery}`;
+  const urlBase = 'https://aquent.com/api/content/render/false/type/json/query/+contentType:AquentJob%20+AquentJob.isPosted:true%20+languageId:1%20+deleted:false%20+working:true';
+  const urlPageLimitSuffix = `/orderby/AquentJob.postedDate%20desc${limitQuery}${pageQuery}`;
 
-  fetch(
-    apiUrl,
-    {
-      contentType: 'application/json',
-      dataType: 'jsonp',
-    },
-  ).then((response) => {
+  // attempt 1: include everything.  Market, major/minor segment
+  let apiUrl = `${urlBase}${marketQuery}${minorSegmentQuery}${urlPageLimitSuffix}`;
+  let jobs = await jobsApiCall(apiUrl);
+
+  if (jobs.length <= 0) {
+    if (minorSegmentQuery.length > 0) {
+      // we got no jobs when we provided everything, let's try without minor segment
+      apiUrl = `${urlBase}${marketQuery}${urlPageLimitSuffix}`;
+      jobs = await jobsApiCall(apiUrl);
+
+      if (jobs.length <= 0) {
+        // we got no jobs for this market at all, so let's try _any jobs_ for this minor segment
+        apiUrl = `${urlBase}${minorSegmentQuery}${urlPageLimitSuffix}`;
+        jobs = await jobsApiCall(apiUrl);
+      }
+
+      if (jobs.length <= 0) {
+        // we got no jobs for this minor segment, and no jobs for this specific market, so let's
+        // query for _any jobs anywhere_ and return that.
+        apiUrl = `${urlBase}${urlPageLimitSuffix}`;
+        jobs = await jobsApiCall(apiUrl);
+      }
+    } else {
+      // we got no jobs on the first try (with just market), but were never provided a minor segment
+      // to begin with.  We will query for _any jobs anywhere_ and return that.
+      apiUrl = `${urlBase}${urlPageLimitSuffix}`;
+      jobs = await jobsApiCall(apiUrl);
+    }
+  }
+
+  return jobs;
+};
+
+
+const jobsApiCall = async (queryUrl) => {
+  try {
+    const response = await fetch(
+      queryUrl,
+      {
+        contentType: 'application/json',
+        dataType: 'jsonp',
+      },
+    );
     if (response.status <= 200) {
-      return response.text();
+      const body = await response.text();
+      const jobs = JSON.parse(body).contentlets;
+      return jobs;
     }
     console.error('an error has occurred.');
     return null;
-  }).then((body) => {
-    const jobs = JSON.parse(body).contentlets;
-    res(jobs);
-  });
-});
+  } catch (err) {
+    console.error('Error retrieving jobs:', err.message || err);
+    return null;
+  }
+};

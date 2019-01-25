@@ -5,7 +5,7 @@ import {
   DEFAULT_MARKET,
   MARKETS,
 } from './constants';
-import { loadJobsForMarket } from './jobApi';
+import { loadJobs } from './jobApi';
 
 export const getMarketFromURLParams = (
   marketId,
@@ -65,7 +65,7 @@ export const getMarketFromId = (marketId) => {
   return market;
 };
 
-export const fetchJobsForMarket = async (marketId, options) => {
+export const fetchJobs = async (marketId, options) => {
   // make sure a marketId was supplied
   if (!marketId) return null;
 
@@ -74,7 +74,7 @@ export const fetchJobsForMarket = async (marketId, options) => {
 
   // go call the API for that market
   try {
-    return await loadJobsForMarket(marketId, options);
+    return await loadJobs(marketId, options);
   } catch (e) {
     console.error(e);
     return null;
