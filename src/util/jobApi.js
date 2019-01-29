@@ -46,25 +46,26 @@ export const loadJobs = async (
 
   if (jobs.length <= 0) {
     if (minorSegmentQuery.length > 0) {
-      // we got no jobs when we provided everything, let's try without minor segment
-      apiUrl = `${urlBase}${marketQuery}${urlPageLimitSuffix}`;
+      // we got no jobs for this market and minor segment(s) combination,
+      // so let's try _any jobs_ for the given minor segments
+      apiUrl = `${urlBase}${minorSegmentQuery}${urlPageLimitSuffix}`;
       jobs = await jobsApiCall(apiUrl);
 
       if (jobs.length <= 0) {
-        // we got no jobs for this market at all, so let's try _any jobs_ for this minor segment
-        apiUrl = `${urlBase}${minorSegmentQuery}${urlPageLimitSuffix}`;
+        // we got no jobs for this minor segment, let's try any jobs for this market at all
+        apiUrl = `${urlBase}${marketQuery}${urlPageLimitSuffix}`;
         jobs = await jobsApiCall(apiUrl);
       }
 
       if (jobs.length <= 0) {
-        // we got no jobs for this minor segment, and no jobs for this specific market, so let's
+        // we got no jobs for this set of minor segments,
+        // and no jobs for this specific market, so let's
         // query for _any jobs anywhere_ and return that.
         apiUrl = `${urlBase}${urlPageLimitSuffix}`;
         jobs = await jobsApiCall(apiUrl);
       }
     } else {
-      // we got no jobs on the first try (with just market), but were never provided a minor segment
-      // to begin with.  We will query for _any jobs anywhere_ and return that.
+      // Final fallback - query for _any jobs anywhere_ and return that.
       apiUrl = `${urlBase}${urlPageLimitSuffix}`;
       jobs = await jobsApiCall(apiUrl);
     }
