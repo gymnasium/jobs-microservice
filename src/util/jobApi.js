@@ -7,8 +7,7 @@ export const loadJobs = async (
   options = {},
 ) => {
   const {
-    majorSegment,
-    minorSegment,
+    minorSegments, // an array of minor segments that we're searching for
     limit,
     page,
   } = options;
@@ -17,7 +16,20 @@ export const loadJobs = async (
   if (marketId) marketQuery = `%20+AquentJob.locationId:${marketId}`;
 
   let minorSegmentQuery = '';
-  if (minorSegment) minorSegmentQuery = `%20+AquentJob.minorSpecialty1:${minorSegment}`;
+  if (
+    Array.isArray(minorSegments)
+    && minorSegments.length > 0
+  ) {
+    // to search for a list of minor segments, we need to provide it to the ODATA api in
+    // the following format:
+    // (ID1%20ID2%20)
+    // basically, this is a list of IDs, separated by %20, and wrapped in Parenthesis
+    const minorSegmentList = minorSegments.reduce(
+      (accumulator, segment) => `${accumulator}%20${segment}`,
+    );
+
+    minorSegmentQuery = `%20+AquentJob.minorSpecialty1:(${minorSegmentList})`;
+  }
 
   let limitQuery = '';
   if (limit) limitQuery = `/limit/${limit}`;
@@ -28,7 +40,7 @@ export const loadJobs = async (
   const urlBase = 'https://aquent.com/api/content/render/false/type/json/query/+contentType:AquentJob%20+AquentJob.isPosted:true%20+languageId:1%20+deleted:false%20+working:true';
   const urlPageLimitSuffix = `/orderby/AquentJob.postedDate%20desc${limitQuery}${pageQuery}`;
 
-  // attempt 1: include everything.  Market, major/minor segment
+  // attempt 1: include everything - Market and minor segments
   let apiUrl = `${urlBase}${marketQuery}${minorSegmentQuery}${urlPageLimitSuffix}`;
   let jobs = await jobsApiCall(apiUrl);
 

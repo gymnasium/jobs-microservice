@@ -38,15 +38,21 @@ class JobsView extends Component {
 
     const {
       minorSegment,
-      majorSegment,
     } = parsed;
+
+    // split minorSegment string into an array of integers
+    // which we will use to query for multiple minor segments
+    const minorSegments = (
+      typeof minorSegment === 'string'
+      && minorSegment.length > 0
+      && minorSegment.split(',')
+    ) || null;
 
     this.state = {
       initialMarket: market,
       loading: true,
       options: {
-        minorSegment,
-        majorSegment,
+        minorSegments,
       },
       market,
       jobs: {},
