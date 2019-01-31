@@ -37,16 +37,22 @@ class JobsView extends Component {
     const parsed = qs.parse(location.search);
 
     const {
-      minorSegment,
-      majorSegment,
+      cwid,
     } = parsed;
+
+    // split cloudwallid string (cwid) into an array of integers
+    // which we will use to query for multiple minor segments
+    const cwids = (
+      typeof cwid === 'string'
+      && cwid.length > 0
+      && cwid.split(',')
+    ) || null;
 
     this.state = {
       initialMarket: market,
       loading: true,
       options: {
-        minorSegment,
-        majorSegment,
+        cwids,
       },
       market,
       jobs: {},

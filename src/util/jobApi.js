@@ -7,8 +7,7 @@ export const loadJobs = async (
   options = {},
 ) => {
   const {
-    majorSegment,
-    minorSegment,
+    cwids, // an array of minor segments that we're searching for
     limit,
     page,
   } = options;
@@ -17,7 +16,20 @@ export const loadJobs = async (
   if (marketId) marketQuery = `%20+AquentJob.locationId:${marketId}`;
 
   let minorSegmentQuery = '';
-  if (minorSegment) minorSegmentQuery = `%20+AquentJob.minorSpecialty1:${minorSegment}`;
+  if (
+    Array.isArray(cwids)
+    && cwids.length > 0
+  ) {
+    // to search for a list of minor segments, we need to provide it to the ODATA api in
+    // the following format:
+    // (ID1%20ID2%20)
+    // basically, this is a list of IDs, separated by %20, and wrapped in Parenthesis
+    const minorSegmentList = cwids.reduce(
+      (accumulator, segment) => `${accumulator}%20${segment}`,
+    );
+
+    minorSegmentQuery = `%20+AquentJob.minorSpecialty1:(${minorSegmentList})`;
+  }
 
   let limitQuery = '';
   if (limit) limitQuery = `/limit/${limit}`;
@@ -28,31 +40,32 @@ export const loadJobs = async (
   const urlBase = 'https://aquent.com/api/content/render/false/type/json/query/+contentType:AquentJob%20+AquentJob.isPosted:true%20+languageId:1%20+deleted:false%20+working:true';
   const urlPageLimitSuffix = `/orderby/AquentJob.postedDate%20desc${limitQuery}${pageQuery}`;
 
-  // attempt 1: include everything.  Market, major/minor segment
+  // attempt 1: include everything - Market and minor segments
   let apiUrl = `${urlBase}${marketQuery}${minorSegmentQuery}${urlPageLimitSuffix}`;
   let jobs = await jobsApiCall(apiUrl);
 
   if (jobs.length <= 0) {
     if (minorSegmentQuery.length > 0) {
-      // we got no jobs when we provided everything, let's try without minor segment
-      apiUrl = `${urlBase}${marketQuery}${urlPageLimitSuffix}`;
+      // we got no jobs for this market and minor segment(s) combination,
+      // so let's try _any jobs_ for the given minor segments
+      apiUrl = `${urlBase}${minorSegmentQuery}${urlPageLimitSuffix}`;
       jobs = await jobsApiCall(apiUrl);
 
       if (jobs.length <= 0) {
-        // we got no jobs for this market at all, so let's try _any jobs_ for this minor segment
-        apiUrl = `${urlBase}${minorSegmentQuery}${urlPageLimitSuffix}`;
+        // we got no jobs for this minor segment, let's try any jobs for this market at all
+        apiUrl = `${urlBase}${marketQuery}${urlPageLimitSuffix}`;
         jobs = await jobsApiCall(apiUrl);
       }
 
       if (jobs.length <= 0) {
-        // we got no jobs for this minor segment, and no jobs for this specific market, so let's
+        // we got no jobs for this set of minor segments,
+        // and no jobs for this specific market, so let's
         // query for _any jobs anywhere_ and return that.
         apiUrl = `${urlBase}${urlPageLimitSuffix}`;
         jobs = await jobsApiCall(apiUrl);
       }
     } else {
-      // we got no jobs on the first try (with just market), but were never provided a minor segment
-      // to begin with.  We will query for _any jobs anywhere_ and return that.
+      // Final fallback - query for _any jobs anywhere_ and return that.
       apiUrl = `${urlBase}${urlPageLimitSuffix}`;
       jobs = await jobsApiCall(apiUrl);
     }
