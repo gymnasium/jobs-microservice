@@ -7,7 +7,7 @@ export const loadJobs = async (
   options = {},
 ) => {
   const {
-    minorSegments, // an array of minor segments that we're searching for
+    cwids, // an array of minor segments that we're searching for
     limit,
     page,
   } = options;
@@ -17,14 +17,14 @@ export const loadJobs = async (
 
   let minorSegmentQuery = '';
   if (
-    Array.isArray(minorSegments)
-    && minorSegments.length > 0
+    Array.isArray(cwids)
+    && cwids.length > 0
   ) {
     // to search for a list of minor segments, we need to provide it to the ODATA api in
     // the following format:
     // (ID1%20ID2%20)
     // basically, this is a list of IDs, separated by %20, and wrapped in Parenthesis
-    const minorSegmentList = minorSegments.reduce(
+    const minorSegmentList = cwids.reduce(
       (accumulator, segment) => `${accumulator}%20${segment}`,
     );
 
