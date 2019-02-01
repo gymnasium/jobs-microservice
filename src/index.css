@@ -2,6 +2,7 @@ body {
   margin: 0 0 2em 0;
   padding: 0;
   font-family: sans-serif;
+  background-color: transparent;
 }
 
 h1,
@@ -23,4 +24,14 @@ h2 {
   word-spacing: .04em;
   margin-top: 0;
   margin-bottom: .4em;
+}
+
+a {
+  color: #f89820;
+}
+
+a:hover {
+  color: #f89820;
+  text-decoration: none;
+  border-bottom: 1px solid;
 }

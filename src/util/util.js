@@ -5,7 +5,29 @@ import {
   DEFAULT_MARKET,
   MARKETS,
 } from './constants';
-import { loadJobsForMarket } from './jobApi';
+import { loadJobs } from './jobApi';
+
+export const getMarketFromURLParams = (
+  marketId,
+  latitude = 35.227087, // lat for Charlotte
+  longitude = -80.843127, // long for Charlotte
+) => {
+  // choose boston as default market, if all else fails
+  let market = MARKETS[10];
+
+  // if a marketId is provided, we use that
+  if (marketId) {
+    market = getMarketFromId(marketId);
+  } else if (latitude && longitude) {
+    // if lat/long are provided, we load a market from there
+    // this will fall back to the defaults provided to this function
+    market = getMarketFromLatLong({
+      latitude,
+      longitude,
+    });
+  }
+  return market;
+};
 
 /**
  * Get locale nearest to the input position.
@@ -31,7 +53,7 @@ export const getMarketFromLatLong = (position) => {
 };
 
 /**
- * Returns a market, given its id. Returns undefined if id is not found.
+ * Returns a market, given its id. Returns the default market if id is not found.
  * @param {*} marketId the ID to search for.
  */
 export const getMarketFromId = (marketId) => {
@@ -43,7 +65,7 @@ export const getMarketFromId = (marketId) => {
   return market;
 };
 
-export const fetchJobsForMarket = async (marketId, minorSegments = []) => {
+export const fetchJobs = async (marketId, options) => {
   // make sure a marketId was supplied
   if (!marketId) return null;
 
@@ -52,7 +74,7 @@ export const fetchJobsForMarket = async (marketId, minorSegments = []) => {
 
   // go call the API for that market
   try {
-    return await loadJobsForMarket(marketId, minorSegments);
+    return await loadJobs(marketId, options);
   } catch (e) {
     console.error(e);
     return null;
@@ -67,4 +89,3 @@ export const generateUTMSlug = (
   const UTMSlug = `utm_source=${utmSource}&utm_medium=${utmMedium}&utm_campaign=${utmCampaign}`;
   return UTMSlug;
 };
-
