@@ -12,12 +12,7 @@ import {
   JobTable,
 } from '..';
 
-const JobsView = (props) => {
-  const {
-    location,
-    match,
-  } = props;
-
+const JobsView = ({ location, match }) => {
   const {
     latitude,
     longitude,
@@ -103,9 +98,6 @@ const JobsView = (props) => {
         />
       );
   }
-};
-
-JobsView.defaultProps = {
 };
 
 JobsView.propTypes = {
