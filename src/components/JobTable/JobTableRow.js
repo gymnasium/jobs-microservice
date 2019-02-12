@@ -6,7 +6,7 @@ import { generateUTMSlug } from '../../util/util';
 const JobTableRow = ({ job }) => {
   if (!job) return null;
 
-  const jobURL = `https://aquent.com/find-work/${job.jobId}?${generateUTMSlug()}`;
+  const jobURL = `https://aquent.com/find-work/${job.jobId}#content?${generateUTMSlug()}`;
 
   return (
     <li className="job-post">
