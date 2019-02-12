@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import qs from 'query-string';
 
@@ -12,28 +12,27 @@ import {
   JobTable,
 } from '..';
 
-class JobsView extends Component {
-  constructor(props) {
-    super(props);
+const JobsView = ({ location, match }) => {
+  const {
+    latitude,
+    longitude,
+    marketId,
+    view: initialView,
+  } = match.params;
 
-    const {
-      location,
-      match,
-    } = props;
-
-    const {
-      latitude,
-      longitude,
-      marketId,
-      view,
-    } = match.params;
-
-    const market = getMarketFromURLParams(
+  const [initialMarket/* , setInitialMarket */] = useState(() => (
+    getMarketFromURLParams(
       marketId,
       latitude,
       longitude,
-    );
+    )
+  ));
+  const [market, setMarket] = useState(initialMarket);
 
+  const [jobs, setJobs] = useState({});
+  const [loading, setLoading] = useState(true);
+  const [view] = useState(initialView);
+  const [options] = useState(() => {
     const parsed = qs.parse(location.search);
 
     const {
@@ -48,83 +47,57 @@ class JobsView extends Component {
       && cwid.split(',')
     ) || null;
 
-    this.state = {
-      initialMarket: market,
-      loading: true,
-      options: {
-        cwids,
-      },
-      market,
-      jobs: {},
-      view,
+    return {
+      cwids,
     };
-  }
+  });
 
-  componentDidMount() {
-    this.searchForJobsAsync();
-  }
+  const handleJobsLoaded = (loadedJobs) => {
+    setJobs(loadedJobs);
+    setLoading(false);
+  };
 
-  handleJobsLoaded = (jobs) => {
-    this.setState({
-      jobs,
-      loading: false,
-    });
-  }
-
-  handleMarketChanged = (market) => {
-    this.setState({ market });
-  }
-
-  searchForJobsAsync = async (marketOverride) => {
-    const { market, options } = this.state;
+  const searchForJobsAsync = async (marketOverride) => {
     try {
-      let marketId = market.id;
+      let currentMarketId = market.id;
       if (marketOverride && marketOverride.id) {
-        marketId = marketOverride.id;
-        this.setState({ market: marketOverride });
+        currentMarketId = marketOverride.id;
+        setMarket(marketOverride);
       }
 
-      const jobs = await fetchJobs(marketId, options);
-      this.handleJobsLoaded(jobs);
+      const jobsFound = await fetchJobs(currentMarketId, options);
+      handleJobsLoaded(jobsFound);
     } catch (e) {
       console.log('error', e.message || e);
     }
-    this.setState({ loading: false });
+    setLoading(false);
+  };
+
+  // search for jobs on initial mount/render/load
+  useEffect(() => {
+    searchForJobsAsync();
+  }, [market, options]);
+
+  switch (view) {
+    case 'table':
+      return (
+        <JobTable
+          initialMarket={initialMarket}
+          jobs={jobs}
+          market={market}
+          refreshJobsList={searchForJobsAsync}
+          loading={loading}
+        />
+      );
+    default:
+      return (
+        <JobList
+          jobs={jobs}
+          market={market}
+          marketChanged={searchForJobsAsync}
+        />
+      );
   }
-
-  render() {
-    const {
-      initialMarket,
-      jobs,
-      loading,
-      market,
-      view,
-    } = this.state;
-
-    switch (view) {
-      case 'table':
-        return (
-          <JobTable
-            initialMarket={initialMarket}
-            jobs={jobs}
-            market={market}
-            refreshJobsList={this.searchForJobsAsync}
-            loading={loading}
-          />
-        );
-      default:
-        return (
-          <JobList
-            jobs={jobs}
-            market={market}
-            marketChanged={this.searchForJobsAsync}
-          />
-        );
-    }
-  }
-}
-
-JobsView.defaultProps = {
 };
 
 JobsView.propTypes = {
