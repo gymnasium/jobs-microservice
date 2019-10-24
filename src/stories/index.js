@@ -1,1 +1,0 @@
-import './GymButton/index.story';
