@@ -42,7 +42,7 @@ class MarketDropdown extends Component {
     } = this.state;
 
     return (
-      <React.Fragment>
+      <>
         {/* eslint-disable jsx-a11y/label-has-associated-control */}
         <label
           id="market-label"
@@ -66,7 +66,7 @@ class MarketDropdown extends Component {
           <option value="" disabled>
             ——————
           </option>
-          {map(sortBy(MARKETS, ['name']), market => (
+          {map(sortBy(MARKETS, ['name']), (market) => (
             <option
               key={market.id}
               value={market.id}
@@ -75,7 +75,7 @@ class MarketDropdown extends Component {
             </option>
           ))}
         </select>
-      </React.Fragment>
+      </>
     );
   }
 }

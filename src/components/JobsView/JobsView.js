@@ -57,7 +57,7 @@ const JobsView = ({ location, match }) => {
     setLoading(false);
   };
 
-  const searchForJobsAsync = async (marketOverride) => {
+  const searchForJobsAsync = useCallback(async (marketOverride) => {
     try {
       let currentMarketId = market.id;
       if (marketOverride && marketOverride.id) {
@@ -71,12 +71,12 @@ const JobsView = ({ location, match }) => {
       console.log('error', e.message || e);
     }
     setLoading(false);
-  };
+  });
 
   // search for jobs on initial mount/render/load
   useEffect(() => {
     searchForJobsAsync();
-  }, [market, options]);
+  }, [market, options, searchForJobsAsync]);
 
   switch (view) {
     case 'table':

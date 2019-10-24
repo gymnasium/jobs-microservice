@@ -2,10 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { map } from 'lodash';
 
-import {
-  JobListing,
-  MarketDropdown,
-} from '..';
+import { JobListing, MarketDropdown } from '..';
 
 import * as UTIL from '../../util/util';
 import './JobList.css';
@@ -17,23 +14,19 @@ class JobList extends Component {
     if (market) {
       marketChanged(market);
     }
-  }
+  };
 
   render() {
-    const {
-      jobs,
-      market,
-    } = this.props;
+    const { jobs, market } = this.props;
 
     return (
-      <article id="gym-microservice-find-work" className="job-list container-fluid">
+      <article
+        id="gym-microservice-find-work"
+        className="job-list container-fluid"
+      >
         <header>
-          <h2>
-            Find Work.
-          </h2>
-          <p>
-            Find work that best fits your skills, in your area.
-          </p>
+          <h2>Find Work.</h2>
+          <p>Find work that best fits your skills, in your area.</p>
         </header>
         <form method="get" id="find-work-search">
           <div className="field select row">
@@ -52,7 +45,9 @@ class JobList extends Component {
               </var>
             </h3>
             <ul>
-              {map(jobs, (job, key) => <JobListing job={job} key={key} market={market} />)}
+              {map(jobs, (job, key) => (
+                <JobListing job={job} key={key} market={market} />
+              ))}
             </ul>
             <div className="row">
               <a
@@ -63,10 +58,8 @@ class JobList extends Component {
               >
                 View all jobs in
                 {' '}
-                <var className="job-location">
-                  {market.name}
-                </var>
-                {' →'}
+                <var className="job-location">{market.name}</var>
+                →
               </a>
             </div>
           </section>
@@ -78,10 +71,13 @@ class JobList extends Component {
 
 JobList.propTypes = {
   jobs: PropTypes.oneOfType([
-    PropTypes.shape({}),
+    PropTypes.shape(),
     PropTypes.arrayOf(PropTypes.shape({})),
   ]).isRequired,
-  market: PropTypes.shape({}).isRequired,
+  market: PropTypes.shape({
+    id: PropTypes.string,
+    name: PropTypes.string,
+  }).isRequired,
   marketChanged: PropTypes.func.isRequired,
 };
 

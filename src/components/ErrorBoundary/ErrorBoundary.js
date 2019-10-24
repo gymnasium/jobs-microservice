@@ -2,9 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 class ErrorBoundary extends Component {
-  state = {
-    hasError: false,
-    error: null,
+  constructor(props) {
+    super(props);
+    this.state = {
+      hasError: false,
+      error: null,
+    };
   }
 
   componentDidCatch(error, info) {
@@ -21,19 +24,12 @@ class ErrorBoundary extends Component {
 
   render() {
     const { children } = this.props;
-    const {
-      error,
-      hasError,
-    } = this.state;
+    const { error, hasError } = this.state;
 
     // detect whether an error has occured
     // if we are in an error state, return errorUI
     if (hasError) {
-      return (
-        <small>
-          {`An error has occurred: ${error.message}`}
-        </small>
-      );
+      return <small>{`An error has occurred: ${error.message}`}</small>;
     }
 
     // no error, return children
