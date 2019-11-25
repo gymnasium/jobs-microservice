@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import LatLon from 'geodesy/latlon-vectors';
+import LatLon from 'geodesy/latlon-spherical';
 
 import {
   DEFAULT_MARKET,
