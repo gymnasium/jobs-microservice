@@ -1,16 +1,8 @@
 import React from 'react';
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 // components
-import {
-  ErrorBoundary,
-  JobsView,
-} from './components';
-
+import { ErrorBoundary, JobsView } from './components';
 
 // this sets up the URL scheme for this microservice.
 // we expect the url to look like:

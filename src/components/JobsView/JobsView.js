@@ -10,7 +10,7 @@ const JobsView = ({ location, match }) => {
   const { latitude, longitude, marketId, view: initialView } = match.params;
 
   const [initialMarket /* , setInitialMarket */] = useState(() =>
-    getMarketFromURLParams(marketId, latitude, longitude),
+    getMarketFromURLParams(marketId, latitude, longitude)
   );
   const [market, setMarket] = useState(initialMarket);
 
@@ -37,21 +37,24 @@ const JobsView = ({ location, match }) => {
     setLoading(false);
   };
 
-  const searchForJobsAsync = useCallback(async marketOverride => {
-    try {
-      let currentMarketId = market.id;
-      if (marketOverride && marketOverride.id) {
-        currentMarketId = marketOverride.id;
-        setMarket(marketOverride);
-      }
+  const searchForJobsAsync = useCallback(
+    async marketOverride => {
+      try {
+        let currentMarketId = market.id;
+        if (marketOverride && marketOverride.id) {
+          currentMarketId = marketOverride.id;
+          setMarket(marketOverride);
+        }
 
-      const jobsFound = await fetchJobs(currentMarketId, options);
-      handleJobsLoaded(jobsFound);
-    } catch (e) {
-      console.log('error', e.message || e);
-    }
-    setLoading(false);
-  }, [market.id, options]);
+        const jobsFound = await fetchJobs(currentMarketId, options);
+        handleJobsLoaded(jobsFound);
+      } catch (e) {
+        console.log('error', e.message || e);
+      }
+      setLoading(false);
+    },
+    [market.id, options]
+  );
 
   // search for jobs on initial mount/render/load
   useEffect(() => {

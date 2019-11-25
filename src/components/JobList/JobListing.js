@@ -6,12 +6,8 @@ import { generateUTMSlug } from '../../util/util';
 
 import './JobListing.css';
 
-const generateURLForJob = (props) => {
-  const {
-    campaign,
-    job,
-    market,
-  } = props;
+const generateURLForJob = props => {
+  const { campaign, job, market } = props;
 
   let topLevelDomain = '.com';
 
@@ -27,15 +23,13 @@ const generateURLForJob = (props) => {
     }
   }
 
-  return `https://aquent${topLevelDomain}/find-work/${job.jobId}#content?${generateUTMSlug(campaign)}`;
+  return `https://aquent${topLevelDomain}/find-work/${
+    job.jobId
+  }#content?${generateUTMSlug(campaign)}`;
 };
 
-const JobListing = (props) => {
-  const {
-    campaign,
-    market,
-    job,
-  } = props;
+const JobListing = props => {
+  const { campaign, market, job } = props;
 
   if (!job) {
     return null;
@@ -53,15 +47,14 @@ const JobListing = (props) => {
 
   return (
     <li className="row gym-microservice-job-listing">
-      <a href={generateURLForJob({ campaign, job, market })} target="_blank" rel="noopener noreferrer">
+      <a
+        href={generateURLForJob({ campaign, job, market })}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         <div className="job-post">
-          <b className="job-title col-xs-8">
-            {job.title}
-          </b>
-          {' '}
-          <em className="job-market col-xs-4 text-right">
-            {jobLocation}
-          </em>
+          <b className="job-title col-xs-8">{job.title}</b>{' '}
+          <em className="job-market col-xs-4 text-right">{jobLocation}</em>
         </div>
       </a>
     </li>

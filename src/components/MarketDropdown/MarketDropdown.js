@@ -34,12 +34,10 @@ class MarketDropdown extends Component {
     if (onMarketChanged && typeof onMarketChanged === 'function') {
       onMarketChanged(marketId);
     }
-  }
+  };
 
   render() {
-    const {
-      marketId,
-    } = this.state;
+    const { marketId } = this.state;
 
     return (
       <>
@@ -58,7 +56,9 @@ class MarketDropdown extends Component {
           className="form-control"
           onChange={this.handleMarketChanged}
           value={marketId}
-          ref={(el) => { this.marketDropdown = el; }}
+          ref={el => {
+            this.marketDropdown = el;
+          }}
         >
           <option value="" disabled>
             Select a location:
@@ -66,11 +66,8 @@ class MarketDropdown extends Component {
           <option value="" disabled>
             ——————
           </option>
-          {map(sortBy(MARKETS, ['name']), (market) => (
-            <option
-              key={market.id}
-              value={market.id}
-            >
+          {map(sortBy(MARKETS, ['name']), market => (
+            <option key={market.id} value={market.id}>
               {market.name}
             </option>
           ))}

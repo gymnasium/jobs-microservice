@@ -12,7 +12,7 @@ h4,
 h5,
 h6 {
   font-weight: 900;
-  font-family:  brandon-grotesque, "Helvetica Neue", Helvetica, sans-serif;
+  font-family: brandon-grotesque, 'Helvetica Neue', Helvetica, sans-serif;
   margin: 0;
   padding: 0;
 }
@@ -20,10 +20,10 @@ h6 {
 h2 {
   text-transform: uppercase;
   font-size: 1.7em/1.2;
-  letter-spacing: .06em;
-  word-spacing: .04em;
+  letter-spacing: 0.06em;
+  word-spacing: 0.04em;
   margin-top: 0;
-  margin-bottom: .4em;
+  margin-bottom: 0.4em;
 }
 
 a {

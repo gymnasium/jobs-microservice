@@ -8,7 +8,7 @@ import * as UTIL from '../../util/util';
 import './JobList.css';
 
 class JobList extends Component {
-  requestMarketChanged = (marketId) => {
+  requestMarketChanged = marketId => {
     const { marketChanged } = this.props;
     const market = UTIL.getMarketFromId(marketId);
     if (market) {
@@ -37,8 +37,7 @@ class JobList extends Component {
           </div>
           <section className="job-board">
             <h3 className="viewing-jobs-in">
-              Viewing jobs in
-              {' '}
+              Viewing jobs in{' '}
               <var className="job-location">
                 {market && market.name}
                 {'…'}
@@ -56,10 +55,8 @@ class JobList extends Component {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                View all jobs in
-                {' '}
-                <var className="job-location">{market.name}</var>
-                →
+                View all jobs in{' '}
+                <var className="job-location">{market.name}</var>→
               </a>
             </div>
           </section>
@@ -75,10 +72,7 @@ JobList.propTypes = {
     PropTypes.arrayOf(PropTypes.shape({})),
   ]).isRequired,
   market: PropTypes.shape({
-    id: PropTypes.oneOfType([
-      PropTypes.number,
-      PropTypes.string,
-    ]),
+    id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     name: PropTypes.string,
   }).isRequired,
   marketChanged: PropTypes.func.isRequired,

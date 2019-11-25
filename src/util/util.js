@@ -1,16 +1,13 @@
 import _ from 'lodash';
 import LatLon from 'geodesy/latlon-spherical';
 
-import {
-  DEFAULT_MARKET,
-  MARKETS,
-} from './constants';
+import { DEFAULT_MARKET, MARKETS } from './constants';
 import { loadJobs } from './jobApi';
 
 export const getMarketFromURLParams = (
   marketId,
   latitude = 35.227087, // lat for Charlotte
-  longitude = -80.843127, // long for Charlotte
+  longitude = -80.843127 // long for Charlotte
 ) => {
   // choose boston as default market, if all else fails
   let market = MARKETS[10];
@@ -34,13 +31,13 @@ export const getMarketFromURLParams = (
  * @param {*} position - object containing lat and long for which we will retun the nearest locale
  * @returns object representing the market nearest to the lat/long pair
  */
-export const getMarketFromLatLong = (position) => {
+export const getMarketFromLatLong = position => {
   let nearestDist = Infinity;
   let nearestMarket = null;
 
   const p1 = new LatLon(position.latitude, position.longitude);
 
-  _.forEach(MARKETS, (market) => {
+  _.forEach(MARKETS, market => {
     const p2 = new LatLon(market.coords.latitude, market.coords.longitude);
     const dist = p1.distanceTo(p2);
     if (dist < nearestDist) {
@@ -56,7 +53,7 @@ export const getMarketFromLatLong = (position) => {
  * Returns a market, given its id. Returns the default market if id is not found.
  * @param {*} marketId the ID to search for.
  */
-export const getMarketFromId = (marketId) => {
+export const getMarketFromId = marketId => {
   let market = DEFAULT_MARKET;
   if (marketId in MARKETS) {
     market = MARKETS[marketId];
@@ -84,7 +81,7 @@ export const fetchJobs = async (marketId, options) => {
 export const generateUTMSlug = (
   utmCampaign = 'job-module',
   utmSource = 'thegymnasium.com',
-  utmMedium = 'web',
+  utmMedium = 'web'
 ) => {
   const UTMSlug = `utm_source=${utmSource}&utm_medium=${utmMedium}&utm_campaign=${utmCampaign}`;
   return UTMSlug;
