@@ -1,16 +1,13 @@
 import _ from 'lodash';
-import LatLon from 'geodesy/latlon-vectors';
+import LatLon from 'geodesy/latlon-nvector-spherical';
 
-import {
-  DEFAULT_MARKET,
-  MARKETS,
-} from './constants';
+import { DEFAULT_MARKET, MARKETS } from './constants';
 import { loadJobs } from './jobApi';
 
 export const getMarketFromURLParams = (
   marketId,
-  latitude = 35.227087, // lat for Charlotte
-  longitude = -80.843127, // long for Charlotte
+  latitude, //  = 35.227087, // lat for Charlotte
+  longitude // = -80.843127 // long for Charlotte
 ) => {
   // choose boston as default market, if all else fails
   let market = MARKETS[10];
@@ -84,7 +81,7 @@ export const fetchJobs = async (marketId, options) => {
 export const generateUTMSlug = (
   utmCampaign = 'job-module',
   utmSource = 'thegymnasium.com',
-  utmMedium = 'web',
+  utmMedium = 'web'
 ) => {
   const UTMSlug = `utm_source=${utmSource}&utm_medium=${utmMedium}&utm_campaign=${utmCampaign}`;
   return UTMSlug;
