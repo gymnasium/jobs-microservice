@@ -101,7 +101,10 @@ const JobsView = ({ location, match }) => {
 };
 
 JobsView.propTypes = {
-  match: PropTypes.shape({}).isRequired,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+    })
+  }).isRequired,
   location: PropTypes.shape({}).isRequired,
 };
 
