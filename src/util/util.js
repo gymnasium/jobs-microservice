@@ -6,8 +6,8 @@ import { loadJobs } from './jobApi';
 
 export const getMarketFromURLParams = (
   marketId,
-  latitude = 35.227087, // lat for Charlotte
-  longitude = -80.843127 // long for Charlotte
+  latitude, //  = 35.227087, // lat for Charlotte
+  longitude // = -80.843127 // long for Charlotte
 ) => {
   // choose boston as default market, if all else fails
   let market = MARKETS[10];
