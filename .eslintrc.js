@@ -11,6 +11,7 @@ module.exports = {
   extends: [
     "airbnb",
     "react-app",
+    "plugin:prettier/recommended",
   ],
   plugins: ["react", "jest"],
   rules: {
