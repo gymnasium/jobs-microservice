@@ -75,7 +75,10 @@ JobList.propTypes = {
     PropTypes.arrayOf(PropTypes.shape({})),
   ]).isRequired,
   market: PropTypes.shape({
-    id: PropTypes.string,
+    id: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.string,
+    ]),
     name: PropTypes.string,
   }).isRequired,
   marketChanged: PropTypes.func.isRequired,
