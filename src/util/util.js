@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import LatLon from 'geodesy/latlon-spherical';
+import LatLon from 'geodesy/latlon-nvector-spherical';
 
 import { DEFAULT_MARKET, MARKETS } from './constants';
 import { loadJobs } from './jobApi';
