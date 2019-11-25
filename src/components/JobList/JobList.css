@@ -35,3 +35,8 @@
 #gym-microservice-find-work .view-all-jobs:hover {
   text-decoration: underline;
 }
+
+.job-list,
+.job-list h1 {
+  color: #ebebeb;
+}
