@@ -69,7 +69,7 @@ export const loadJobs = async (marketId, options = {}) => {
   return jobs;
 };
 
-const jobsApiCall = async queryUrl => {
+const jobsApiCall = async (queryUrl) => {
   try {
     const response = await fetch(queryUrl, {
       contentType: 'application/json',

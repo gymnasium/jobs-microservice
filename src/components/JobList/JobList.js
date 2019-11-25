@@ -8,7 +8,7 @@ import * as UTIL from '../../util/util';
 import './JobList.css';
 
 class JobList extends Component {
-  requestMarketChanged = marketId => {
+  requestMarketChanged = (marketId) => {
     const { marketChanged } = this.props;
     const market = UTIL.getMarketFromId(marketId);
     if (market) {

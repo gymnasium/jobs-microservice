@@ -56,7 +56,7 @@ class MarketDropdown extends Component {
           className="form-control"
           onChange={this.handleMarketChanged}
           value={marketId}
-          ref={el => {
+          ref={(el) => {
             this.marketDropdown = el;
           }}
         >
@@ -66,7 +66,7 @@ class MarketDropdown extends Component {
           <option value="" disabled>
             ——————
           </option>
-          {map(sortBy(MARKETS, ['name']), market => (
+          {map(sortBy(MARKETS, ['name']), (market) => (
             <option key={market.id} value={market.id}>
               {market.name}
             </option>

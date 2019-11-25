@@ -32,13 +32,13 @@ const JobsView = ({ location, match }) => {
     };
   });
 
-  const handleJobsLoaded = loadedJobs => {
+  const handleJobsLoaded = (loadedJobs) => {
     setJobs(loadedJobs);
     setLoading(false);
   };
 
   const searchForJobsAsync = useCallback(
-    async marketOverride => {
+    async (marketOverride) => {
       try {
         let currentMarketId = market.id;
         if (marketOverride && marketOverride.id) {
@@ -85,9 +85,16 @@ const JobsView = ({ location, match }) => {
 
 JobsView.propTypes = {
   match: PropTypes.shape({
-    params: PropTypes.shape({}),
+    params: PropTypes.shape({
+      latitude: PropTypes.number,
+      longitude: PropTypes.number,
+      marketId: PropTypes.string,
+      view: PropTypes.string,
+    }),
   }).isRequired,
-  location: PropTypes.shape({}).isRequired,
+  location: PropTypes.shape({
+    search: PropTypes.string,
+  }).isRequired,
 };
 
 export default JobsView;

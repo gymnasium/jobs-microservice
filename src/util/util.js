@@ -31,13 +31,13 @@ export const getMarketFromURLParams = (
  * @param {*} position - object containing lat and long for which we will retun the nearest locale
  * @returns object representing the market nearest to the lat/long pair
  */
-export const getMarketFromLatLong = position => {
+export const getMarketFromLatLong = (position) => {
   let nearestDist = Infinity;
   let nearestMarket = null;
 
   const p1 = new LatLon(position.latitude, position.longitude);
 
-  _.forEach(MARKETS, market => {
+  _.forEach(MARKETS, (market) => {
     const p2 = new LatLon(market.coords.latitude, market.coords.longitude);
     const dist = p1.distanceTo(p2);
     if (dist < nearestDist) {
@@ -53,7 +53,7 @@ export const getMarketFromLatLong = position => {
  * Returns a market, given its id. Returns the default market if id is not found.
  * @param {*} marketId the ID to search for.
  */
-export const getMarketFromId = marketId => {
+export const getMarketFromId = (marketId) => {
   let market = DEFAULT_MARKET;
   if (marketId in MARKETS) {
     market = MARKETS[marketId];

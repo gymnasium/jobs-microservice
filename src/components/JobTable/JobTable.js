@@ -12,7 +12,7 @@ import * as UTIL from '../../util/util';
 // css for this component
 import './JobTable.css';
 
-const JobTable = props => {
+const JobTable = (props) => {
   const { initialMarket, jobs, loading, refreshJobsList } = props;
 
   const [market, setMarket] = useState(initialMarket);
@@ -33,7 +33,7 @@ const JobTable = props => {
                     initialMarket.id || CONSTANTS.DEFAULT_MARKET.id
                   }
                   market={market}
-                  onMarketChanged={marketId => {
+                  onMarketChanged={(marketId) => {
                     setMarket(UTIL.getMarketFromId(marketId));
                   }}
                 />
@@ -73,7 +73,9 @@ JobTable.defaultProps = {
 };
 
 JobTable.propTypes = {
-  initialMarket: PropTypes.shape({}).isRequired,
+  initialMarket: PropTypes.shape({
+    id: PropTypes.number,
+  }).isRequired,
   jobs: PropTypes.oneOfType([
     PropTypes.shape({}),
     PropTypes.arrayOf(PropTypes.shape({})),

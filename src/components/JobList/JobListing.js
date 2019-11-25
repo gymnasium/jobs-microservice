@@ -6,7 +6,7 @@ import { generateUTMSlug } from '../../util/util';
 
 import './JobListing.css';
 
-const generateURLForJob = props => {
+const generateURLForJob = (props) => {
   const { campaign, job, market } = props;
 
   let topLevelDomain = '.com';
@@ -28,7 +28,7 @@ const generateURLForJob = props => {
   }#content?${generateUTMSlug(campaign)}`;
 };
 
-const JobListing = props => {
+const JobListing = (props) => {
   const { campaign, market, job } = props;
 
   if (!job) {
@@ -70,8 +70,12 @@ JobListing.defaultProps = {
 JobListing.propTypes = {
   campaign: PropTypes.string,
   job: PropTypes.shape({
+    city: PropTypes.string,
     description: PropTypes.string,
+    geocodeCity: PropTypes.string,
+    geocodeState: PropTypes.string,
     jobId: PropTypes.string,
+    marketId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     title: PropTypes.string,
   }),
   market: PropTypes.shape({

@@ -32,7 +32,11 @@ JobTableRow.defaultProps = {
 };
 
 JobTableRow.propTypes = {
-  job: PropTypes.shape({}),
+  job: PropTypes.shape({
+    jobId: PropTypes.string,
+    marketId: PropTypes.string,
+    title: PropTypes.string,
+  }),
 };
 
 export default JobTableRow;

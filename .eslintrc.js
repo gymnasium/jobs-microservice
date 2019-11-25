@@ -15,5 +15,6 @@ module.exports = {
     'react/jsx-filename-extension': [0],
     'jsx-a11y/href-no-hash': [0],
     'jsx-a11y/label-has-for': [0],
+    'react/jsx-one-expression-per-line': [0],
   },
 };

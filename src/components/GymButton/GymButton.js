@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import './GymButton.css';
 
-const GymButton = props => {
+const GymButton = (props) => {
   const { children, className, ...rest } = props;
 
   return (
