@@ -1,135 +1,100 @@
-import React, { Component } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import qs from 'query-string';
 
-import {
-  fetchJobs,
-  getMarketFromURLParams,
-} from '../../util/util';
+import { fetchJobs, getMarketFromURLParams } from '../../util/util';
 
-import {
-  JobList,
-  JobTable,
-} from '..';
+import { JobList, JobTable } from '..';
 
-class JobsView extends Component {
-  constructor(props) {
-    super(props);
+const JobsView = ({ location, match }) => {
+  const { latitude, longitude, marketId, view: initialView } = match.params;
 
-    const {
-      location,
-      match,
-    } = props;
+  const [initialMarket /* , setInitialMarket */] = useState(() =>
+    getMarketFromURLParams(marketId, latitude, longitude)
+  );
+  const [market, setMarket] = useState(initialMarket);
 
-    const {
-      latitude,
-      longitude,
-      marketId,
-      view,
-    } = match.params;
-
-    const market = getMarketFromURLParams(
-      marketId,
-      latitude,
-      longitude,
-    );
-
+  const [jobs, setJobs] = useState({});
+  const [loading, setLoading] = useState(true);
+  const [view] = useState(initialView);
+  const [options] = useState(() => {
     const parsed = qs.parse(location.search);
 
-    const {
-      cwid,
-    } = parsed;
+    const { cwid } = parsed;
 
     // split cloudwallid string (cwid) into an array of integers
     // which we will use to query for multiple minor segments
-    const cwids = (
-      typeof cwid === 'string'
-      && cwid.length > 0
-      && cwid.split(',')
-    ) || null;
+    const cwids =
+      (typeof cwid === 'string' && cwid.length > 0 && cwid.split(',')) || null;
 
-    this.state = {
-      initialMarket: market,
-      loading: true,
-      options: {
-        cwids,
-      },
-      market,
-      jobs: {},
-      view,
+    return {
+      cwids,
     };
-  }
+  });
 
-  componentDidMount() {
-    this.searchForJobsAsync();
-  }
+  const handleJobsLoaded = (loadedJobs) => {
+    setJobs(loadedJobs);
+    setLoading(false);
+  };
 
-  handleJobsLoaded = (jobs) => {
-    this.setState({
-      jobs,
-      loading: false,
-    });
-  }
+  const searchForJobsAsync = useCallback(
+    async (marketOverride) => {
+      try {
+        let currentMarketId = market.id;
+        if (marketOverride && marketOverride.id) {
+          currentMarketId = marketOverride.id;
+          setMarket(marketOverride);
+        }
 
-  handleMarketChanged = (market) => {
-    this.setState({ market });
-  }
-
-  searchForJobsAsync = async (marketOverride) => {
-    const { market, options } = this.state;
-    try {
-      let marketId = market.id;
-      if (marketOverride && marketOverride.id) {
-        marketId = marketOverride.id;
-        this.setState({ market: marketOverride });
+        const jobsFound = await fetchJobs(currentMarketId, options);
+        handleJobsLoaded(jobsFound);
+      } catch (e) {
+        console.log('error', e.message || e);
       }
+      setLoading(false);
+    },
+    [market.id, options]
+  );
 
-      const jobs = await fetchJobs(marketId, options);
-      this.handleJobsLoaded(jobs);
-    } catch (e) {
-      console.log('error', e.message || e);
-    }
-    this.setState({ loading: false });
+  // search for jobs on initial mount/render/load
+  useEffect(() => {
+    searchForJobsAsync();
+  }, [market, options, searchForJobsAsync]);
+
+  switch (view) {
+    case 'table':
+      return (
+        <JobTable
+          initialMarket={initialMarket}
+          jobs={jobs}
+          market={market}
+          refreshJobsList={searchForJobsAsync}
+          loading={loading}
+        />
+      );
+    default:
+      return (
+        <JobList
+          jobs={jobs}
+          market={market}
+          marketChanged={searchForJobsAsync}
+        />
+      );
   }
-
-  render() {
-    const {
-      initialMarket,
-      jobs,
-      loading,
-      market,
-      view,
-    } = this.state;
-
-    switch (view) {
-      case 'table':
-        return (
-          <JobTable
-            initialMarket={initialMarket}
-            jobs={jobs}
-            market={market}
-            refreshJobsList={this.searchForJobsAsync}
-            loading={loading}
-          />
-        );
-      default:
-        return (
-          <JobList
-            jobs={jobs}
-            market={market}
-            marketChanged={this.searchForJobsAsync}
-          />
-        );
-    }
-  }
-}
-
-JobsView.defaultProps = {
 };
 
 JobsView.propTypes = {
-  match: PropTypes.shape({}).isRequired,
-  location: PropTypes.shape({}).isRequired,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      latitude: PropTypes.number,
+      longitude: PropTypes.number,
+      marketId: PropTypes.string,
+      view: PropTypes.string,
+    }),
+  }).isRequired,
+  location: PropTypes.shape({
+    search: PropTypes.string,
+  }).isRequired,
 };
 
 export default JobsView;

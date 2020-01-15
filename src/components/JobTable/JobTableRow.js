@@ -6,7 +6,9 @@ import { generateUTMSlug } from '../../util/util';
 const JobTableRow = ({ job }) => {
   if (!job) return null;
 
-  const jobURL = `https://aquent.com/find-work/${job.jobId}?${generateUTMSlug()}`;
+  const jobURL = `https://aquent.com/find-work/${
+    job.jobId
+  }#content?${generateUTMSlug()}`;
 
   return (
     <li className="job-post">
@@ -15,14 +17,10 @@ const JobTableRow = ({ job }) => {
           {job.title}
         </a>
       </h3>
-      <p className="job-market">
-        {job.marketId}
-      </p>
+      <p className="job-market">{job.marketId}</p>
       <div className="job-link">
         <a href={jobURL} target="_blank" rel="noopener noreferrer">
-          <b>
-            Learn More
-          </b>
+          <b>Learn More</b>
         </a>
       </div>
     </li>
@@ -34,7 +32,11 @@ JobTableRow.defaultProps = {
 };
 
 JobTableRow.propTypes = {
-  job: PropTypes.shape({}),
+  job: PropTypes.shape({
+    jobId: PropTypes.string,
+    marketId: PropTypes.string,
+    title: PropTypes.string,
+  }),
 };
 
 export default JobTableRow;

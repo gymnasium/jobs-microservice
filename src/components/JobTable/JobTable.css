@@ -23,24 +23,25 @@
 }
 
 .content-wrapper h1 {
-  letter-spacing: .025em;
+  letter-spacing: 0.025em;
 }
 
 .content-wrapper h2 {
   font-weight: 900;
   font-size: 2.057142857142857em;
   line-height: 1;
-  letter-spacing: .015em;
+  letter-spacing: 0.015em;
 }
 
 #feature h3 {
-  font: 900 1.828571428571429em/1.15 "brandon-grotesque", "Helvetica Neue", Helvetica, sans-serif;
-  letter-spacing: .035em;
+  font: 900 1.828571428571429em/1.15 'brandon-grotesque', 'Helvetica Neue',
+    Helvetica, sans-serif;
+  letter-spacing: 0.035em;
   text-transform: uppercase;
 }
 
 .content-wrapper h3 {
-  font: bold 1.6em/1.15 "Helvetica Neue", Helvetica, sans-serif;
+  font: bold 1.6em/1.15 'Helvetica Neue', Helvetica, sans-serif;
   letter-spacing: 0;
   text-transform: none;
 }
@@ -48,7 +49,7 @@
 /* paragraphs */
 
 .content-wrapper p {
-  font: normal 1.15em/1.45 "Helvetica Neue", Helvetica, sans-serif;
+  font: normal 1.15em/1.45 'Helvetica Neue', Helvetica, sans-serif;
   margin-top: 1em;
   margin-bottom: 0;
 }
@@ -91,10 +92,10 @@
 
 .to-top-link b::before {
   display: inline-block;
-  content: "↑";
+  content: '↑';
   font-family: monospace, monospace;
   vertical-align: baseline;
-  margin-right: .25em;
+  margin-right: 0.25em;
 }
 
 /* remove border from linked images  */
@@ -113,7 +114,7 @@
   background: #f8971d;
   padding: 1.2em 2.2em !important; /* ! */ /* risky override */
   border: 0;
-  border-radius: .1875em;
+  border-radius: 0.1875em;
   cursor: pointer;
 }
 
@@ -136,16 +137,16 @@
 }
 
 .section header p {
-  font: normal 1.25em/1.45 "Helvetica Neue", Helvetica, sans-serif;
+  font: normal 1.25em/1.45 'Helvetica Neue', Helvetica, sans-serif;
 }
 
 .section-content {
   background: #fff;
-  border-radius: .1875em;
+  border-radius: 0.1875em;
 }
 
 .section header {
-  margin-top: .4em;
+  margin-top: 0.4em;
   margin-bottom: 1.6em;
 }
 
@@ -159,9 +160,9 @@
 }
 
 #about p {
-  font: normal 1.45em/1.55 "Helvetica Neue", Helvetica, sans-serif;
+  font: normal 1.45em/1.55 'Helvetica Neue', Helvetica, sans-serif;
   color: #222;
-  margin-top: .6em;
+  margin-top: 0.6em;
 }
 
 #about .mission a {
@@ -203,7 +204,7 @@
 
 .card ul {
   margin-top: 1.2em;
-  }
+}
 
 .card li {
   top: 0;
@@ -214,7 +215,7 @@
 .card-content {
   background: #fff;
   border: 1px solid #bbb;
-  border-radius: .1875em;
+  border-radius: 0.1875em;
 }
 
 .card-header,
@@ -249,7 +250,7 @@ header.card-header,
 /* --- #feature --- */
 
 #feature {
-  margin-top: .6em;
+  margin-top: 0.6em;
   margin-left: -15px;
   margin-right: -15px;
 }
@@ -282,7 +283,7 @@ header.card-header,
 /* --- #jobs --- */
 
 #jobs {
-  margin-top: .4em;
+  margin-top: 0.4em;
 }
 
 #market,
@@ -293,7 +294,7 @@ header.card-header,
 
 #view-jobs-button {
   font-size: 1.05em;
-  margin-top: 1.142857142857143em;/* 1.2em */
+  margin-top: 1.142857142857143em; /* 1.2em */
 }
 
 /* job status */
@@ -308,11 +309,11 @@ header.card-header,
 
 #view-jobs-button b {
   font-size: 1.371428571428571em;
-  letter-spacing: .025em;
+  letter-spacing: 0.025em;
 }
 
 p.job-market {
-  margin-top: .4em;
+  margin-top: 0.4em;
 }
 
 .job-link {
@@ -372,25 +373,24 @@ p.job-market {
 }
 
 .webinar header p {
-  margin-top: .4em;
+  margin-top: 0.4em;
 }
 
 /* --- breakpoints --- */
 
 @media (min-width: 48em) {
-
   /* --- legacy layout --- */
 
   .col ul {
-    margin: 0 -.6em;
+    margin: 0 -0.6em;
   }
 
   .col li {
     float: left;
     width: 100%;
     box-sizing: border-box;
-    padding-left: .6em;
-    padding-right: .6em;
+    padding-left: 0.6em;
+    padding-right: 0.6em;
   }
 
   .col-2 li {
@@ -404,7 +404,6 @@ p.job-market {
   #feature .card-main {
     min-height: 24em;
   }
-
 
   /* --- section / header paragraph --- */
 
@@ -428,7 +427,7 @@ p.job-market {
 
   #view-jobs-button {
     margin-top: 0;
-    margin-left: 1.142857142857143em;/* 1.2em */
+    margin-left: 1.142857142857143em; /* 1.2em */
   }
 
   .job-post {
@@ -463,20 +462,18 @@ p.job-market {
     position: absolute;
     top: 0;
     bottom: 0;
-    right: .625em;
+    right: 0.625em;
   }
 
   .job-link a {
-    font: normal 1.15em/1 "Helvetica Neue", Helvetica, sans-serif;
+    font: normal 1.15em/1 'Helvetica Neue', Helvetica, sans-serif;
   }
-
 
   /* --- modern layout --- */
 
   /* work in progress */
 
-   @supports (display: grid) {
-
+  @supports (display: grid) {
     .job-post {
       display: grid;
       grid-template-columns: 2fr 2fr 1fr;
@@ -502,7 +499,5 @@ p.job-market {
       margin-top: 0;
       margin-bottom: 0;
     }
-
   }
-
 }
