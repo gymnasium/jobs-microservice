@@ -38,5 +38,5 @@
 
 .job-list,
 .job-list h1 {
-  color: #ebebeb;
+  color: inherit;
 }
