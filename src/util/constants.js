@@ -1,4 +1,14 @@
+const REMOTE_MARKET = {
+  name: 'Remote jobs',
+  id: -999,
+  coords: {
+    latitude: 0,
+    longitude: 0,
+  },
+};
+
 const MARKETS = {
+  [REMOTE_MARKET.id]: REMOTE_MARKET,
   23: {
     name: 'Atlanta',
     id: 23,
@@ -385,9 +395,10 @@ const MARKETS = {
   },
 };
 
-const DEFAULT_MARKET = MARKETS[10]; // boston
+const DEFAULT_MARKET = REMOTE_MARKET;
 
 module.exports = {
   MARKETS,
   DEFAULT_MARKET,
+  REMOTE_MARKET,
 };

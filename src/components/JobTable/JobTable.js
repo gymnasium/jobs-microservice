@@ -17,10 +17,6 @@ const JobTable = (props) => {
 
   const [market, setMarket] = useState(initialMarket);
 
-  if (!jobs) {
-    return <div />;
-  }
-
   return (
     <div className="content-wrapper">
       <section className="section">
