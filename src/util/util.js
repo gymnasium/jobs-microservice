@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import LatLon from 'geodesy/latlon-nvector-spherical';
 
-import { DEFAULT_MARKET, MARKETS } from './constants';
+import { DEFAULT_MARKET, MARKETS, REMOTE_MARKET } from './constants';
 import { loadJobs } from './jobApi';
 
 export const getMarketFromURLParams = (
@@ -9,8 +9,8 @@ export const getMarketFromURLParams = (
   latitude, //  = 35.227087, // lat for Charlotte
   longitude // = -80.843127 // long for Charlotte
 ) => {
-  // choose boston as default market, if all else fails
-  let market = MARKETS[10];
+  // choose remote as default market, if all else fails
+  let market = REMOTE_MARKET;
 
   // if a marketId is provided, we use that
   if (marketId) {
@@ -37,7 +37,12 @@ export const getMarketFromLatLong = (position) => {
 
   const p1 = new LatLon(position.latitude, position.longitude);
 
-  _.forEach(MARKETS, (market) => {
+  const nonRemoteMarkets = _.filter(
+    MARKETS,
+    (market) => market.id !== REMOTE_MARKET.id
+  );
+
+  _.forEach(nonRemoteMarkets, (market) => {
     const p2 = new LatLon(market.coords.latitude, market.coords.longitude);
     const dist = p1.distanceTo(p2);
     if (dist < nearestDist) {

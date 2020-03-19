@@ -1,6 +1,7 @@
 /* eslint-disable import/prefer-default-export */
 
 import fetch from 'isomorphic-fetch';
+import { REMOTE_MARKET } from './constants';
 
 export const loadJobs = async (marketId, options = {}) => {
   const {
@@ -9,8 +10,23 @@ export const loadJobs = async (marketId, options = {}) => {
     page,
   } = options;
 
+  const isRemoteSearch = marketId === REMOTE_MARKET.id;
+
+  let remoteQuery = '';
+  if (isRemoteSearch) {
+    // offsitePreference values:
+    // 1: on-site
+    // 2: off-site
+    // 3: either
+    remoteQuery =
+      '+(AquentJob.offsitePreference:2%20AquentJob.offsitePreference:3)';
+  }
+
   let marketQuery = '';
   if (marketId) marketQuery = `%20+AquentJob.locationId:${marketId}`;
+
+  // clear out market query if this is a remote job
+  if (isRemoteSearch) marketQuery = '';
 
   let minorSegmentQuery = '';
   if (Array.isArray(cwids) && cwids.length > 0) {
@@ -31,8 +47,7 @@ export const loadJobs = async (marketId, options = {}) => {
   let pageQuery = '';
   if (page) pageQuery = `/offset/${page}`;
 
-  const urlBase =
-    'https://aquent.com/api/content/render/false/type/json/query/+contentType:AquentJob%20+AquentJob.isPosted:true%20+languageId:1%20+deleted:false%20+working:true';
+  const urlBase = `https://aquent.com/api/content/render/false/type/json/query/+contentType:AquentJob%20${remoteQuery}+AquentJob.isPosted:true%20+languageId:1%20+deleted:false%20+working:true`;
   const urlPageLimitSuffix = `/orderby/AquentJob.postedDate%20desc${limitQuery}${pageQuery}`;
 
   // attempt 1: include everything - Market and minor segments
