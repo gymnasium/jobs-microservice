@@ -20,7 +20,7 @@ const JobsView = ({ location, match }) => {
   const [options] = useState(() => {
     const parsed = qs.parse(location.search);
 
-    const { cwid } = parsed;
+    const { cwid, remote } = parsed;
 
     // split cloudwallid string (cwid) into an array of integers
     // which we will use to query for multiple minor segments
@@ -29,6 +29,7 @@ const JobsView = ({ location, match }) => {
 
     return {
       cwids,
+      remote,
     };
   });
 
