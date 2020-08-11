@@ -1,11 +1,31 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { map, sortBy } from 'lodash';
+import { map } from 'lodash';
 
-import { MARKETS, REMOTE_MARKET } from '../../util/constants';
+import {
+  NORTH_AMERICAN_MARKETS,
+  EUROPEAN_MARKETS,
+  APAC_MARKETS,
+  REMOTE_MARKET,
+} from '../../util/constants';
 
 // CSS
 import './MarketDropdown.css';
+
+const renderMarketList = (marketList, title) => (
+  <>
+    {title && (
+      <option value="" disabled>
+        {`---- ${title} ----`}
+      </option>
+    )}
+    {map(marketList, (market) => (
+      <option key={market.id} value={market.id}>
+        {market.name}
+      </option>
+    ))}
+  </>
+);
 
 class MarketDropdown extends Component {
   constructor(props) {
@@ -63,22 +83,11 @@ class MarketDropdown extends Component {
           <option value="" disabled>
             Select a location:
           </option>
-          <option value="" disabled>
-            ——————
-          </option>
           <option value={REMOTE_MARKET.id}>{REMOTE_MARKET.name}</option>
-          <option value="" disabled>
-            ——————
-          </option>
-          {map(sortBy(MARKETS, ['name']), (market) => {
-            // we rendered "remote" above, so don't include it in this list
-            if (market.id === REMOTE_MARKET.id) return null;
-            return (
-              <option key={market.id} value={market.id}>
-                {market.name}
-              </option>
-            );
-          })}
+
+          {renderMarketList(NORTH_AMERICAN_MARKETS, 'North America')}
+          {renderMarketList(EUROPEAN_MARKETS, 'Europe')}
+          {renderMarketList(APAC_MARKETS, 'Asia Pacific')}
         </select>
       </>
     );

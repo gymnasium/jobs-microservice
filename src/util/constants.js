@@ -1,4 +1,4 @@
-const REMOTE_MARKET = {
+export const REMOTE_MARKET = {
   name: 'Remote jobs',
   id: -999,
   coords: {
@@ -7,8 +7,7 @@ const REMOTE_MARKET = {
   },
 };
 
-const MARKETS = {
-  [REMOTE_MARKET.id]: REMOTE_MARKET,
+export const NORTH_AMERICAN_MARKETS = {
   23: {
     name: 'Atlanta',
     id: 23,
@@ -321,6 +320,9 @@ const MARKETS = {
       longitude: -123.120738,
     },
   },
+};
+
+export const EUROPEAN_MARKETS = {
   43: {
     name: 'Amsterdam',
     id: 43,
@@ -345,6 +347,9 @@ const MARKETS = {
       longitude: 2.352222,
     },
   },
+};
+
+export const APAC_MARKETS = {
   36: {
     name: 'Melbourne',
     id: 36,
@@ -395,10 +400,20 @@ const MARKETS = {
   },
 };
 
-const DEFAULT_MARKET = REMOTE_MARKET;
-
-module.exports = {
-  MARKETS,
-  DEFAULT_MARKET,
-  REMOTE_MARKET,
+export const MARKETS = {
+  [REMOTE_MARKET.id]: REMOTE_MARKET,
+  ...NORTH_AMERICAN_MARKETS,
+  ...EUROPEAN_MARKETS,
+  ...APAC_MARKETS,
 };
+
+export const DEFAULT_MARKET = REMOTE_MARKET;
+
+// module.exports = {
+//   NORTH_AMERICAN_MARKETS,
+//   EUROPEAN_MARKETS,
+//   APAC_MARKETS,
+//   MARKETS,
+//   REMOTE_MARKET,
+//   DEFAULT_MARKET,
+// };
