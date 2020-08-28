@@ -40,10 +40,10 @@ a:not([class]) {
 a:not([class]):hover,
 a:not([class]):focus,
 a:not([class]):active {
- border-bottom-width: 2px;
- margin-bottom: -0.125rem;
+  border-bottom-width: 2px;
+  margin-bottom: -0.125rem;
 }
-  
+
 .job-title a {
   line-height: 1.35;
 }
