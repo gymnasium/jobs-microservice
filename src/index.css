@@ -31,7 +31,7 @@ a:hover {
 }
 
 a:not([class]) {
-  line-height: inherit !important;
+  line-height: inherit;
   color: currentColor !important;
   padding-bottom: 0.125rem;
   border-bottom: 1px solid currentColor;
@@ -42,4 +42,8 @@ a:not([class]):focus,
 a:not([class]):active {
  border-bottom-width: 2px;
  margin-bottom: -0.125rem;
+}
+  
+.job-title a {
+  line-height: 1.35;
 }
