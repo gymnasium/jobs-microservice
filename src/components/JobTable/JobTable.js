@@ -6,7 +6,7 @@ import { map } from 'lodash';
 import { ErrorBoundary, MarketDropdown } from '..';
 import JobTableRow from './JobTableRow';
 
-import CONSTANTS from '../../util/constants';
+import { DEFAULT_MARKET } from '../../util/constants';
 import * as UTIL from '../../util/util';
 
 // css for this component
@@ -25,9 +25,7 @@ const JobTable = (props) => {
             <div className="select-search">
               <ErrorBoundary>
                 <MarketDropdown
-                  initialMarketId={
-                    initialMarket.id || CONSTANTS.DEFAULT_MARKET.id
-                  }
+                  initialMarketId={initialMarket.id || DEFAULT_MARKET.id}
                   market={market}
                   onMarketChanged={(marketId) => {
                     setMarket(UTIL.getMarketFromId(marketId));
